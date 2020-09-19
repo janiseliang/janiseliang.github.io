@@ -1,5 +1,4 @@
-theme: jekyll-theme-minimal
-title: about me
+title: About Me
 
 plugins:
   - jekyll-relative-links
