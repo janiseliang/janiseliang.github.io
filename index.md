@@ -1,9 +1,10 @@
-## two
-### three
-```code
-abc
+# Janise Liang
+Majoring in computer science and applied mathematics at UC Berkeley (2023 expected graduation)
 
-# one
+### Class Experience
+- **In progress (Fall 2020):** CS 61c, EE 16b, Math 104, Stat 135
+- **Completed:** CS 61a, CS 61b, Data 8, CS 70, Math 54
 
-- list
-- list item 2
+### My Projects
+- **GamesCrafters:** solving 2-player strategy games such as tic-tac-toe and Connect Four
+- tbd
