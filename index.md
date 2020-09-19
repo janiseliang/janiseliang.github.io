@@ -1,5 +1,7 @@
 # Janise Liang
-Majoring in computer science and applied mathematics at UC Berkeley (2023 expected graduation)
+UC Berkeley (expected graduation 2023)
+
+computer science and applied mathematics
 
 ### Class Experience
 - **In progress (Fall 2020):** CS 61c, EE 16b, Math 104, Stat 135
