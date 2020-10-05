@@ -26,6 +26,37 @@ html {
     grid-column-end: 2;
     grid-row-end: 2;
 }
+.link-nav.w--current {
+    box-shadow: inset 0 -3px 0 0 rgba(0, 0, 0, .5);
+    color: #000;
+}
+.link-nav {
+    margin-right: 10px;
+    margin-left: 10px;
+    padding: 0px 0px 5px;
+    box-shadow: none;
+    -webkit-transition: color 200ms ease, box-shadow 200ms ease;
+    transition: color 200ms ease, box-shadow 200ms ease;
+    font-family: Roboto, sans-serif;
+    color: grey;
+    font-size: 16px;
+    font-weight: 400;
+}
+.w-nav-link {
+    position: relative;
+    display: inline-block;
+    vertical-align: top;
+    text-decoration: none;
+    color: #222222;
+    padding: 20px;
+    text-align: left;
+    margin-left: auto;
+    margin-right: auto;
+}
+/* @media (max-width: 991px)
+a {
+    margin-bottom: 20px;
+} */
 .w-nav:after {
     clear: both;
 }
