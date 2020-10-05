@@ -2,7 +2,7 @@
 UC Berkeley | expected class of spring 2023 | computer science and applied math (statistics cluster)
 
 ### Links
-- [GitHub][gh] and [LinkedIn][li]
+- My [GitHub][gh] and [Linkedin][li]
 
 ### Coursework
 - **In progress (Fall 2020):** CS 61C, EE 16B, Stat 135, Math 104
@@ -10,11 +10,11 @@ UC Berkeley | expected class of spring 2023 | computer science and applied math 
 
 ### My Projects
 - **GamesCrafters:** solve and implement perfect computer player for 2-player abstract strategy games such as tic-tac-toe and Connect Four
-- ASA Public Health Data Challenge: won best overall high school team, see our visualizations [here][ada]
-- Assistant Instructor for Discrete Math & Probability Theory (CS 70)
+- **ASA Public Health Data Challenge:** won best overall high school team, see our visualizations [here][ada]
+- **Assistant Instructor:** Discrete Math & Probability Theory (fall 2020)
 
-### Interests
-- Sports: tennis, soccer, skiing
+### Activities
+- Sports: club tennis, soccer, skiing
 
 [gh]: https://github.com/janiseliang
 [li]: https://www.linkedin.com/in/janise-liang-710141171/
