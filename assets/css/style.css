@@ -1156,6 +1156,13 @@ figcaption {
   background-color: #dfe2e8;
 }
 
+.w-nav-brand {
+  position: relative;
+  float: left;
+  text-decoration: none;
+  color: #333333;
+}
+
 .brand {
   display: -webkit-box;
   display: -webkit-flex;
