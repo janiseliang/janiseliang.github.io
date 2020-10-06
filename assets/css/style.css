@@ -1149,11 +1149,11 @@ body {
   }
   
   .navbar {
-    position: absolute;
+    position: fixed;
     width: 100%;
     height: auto;
     padding: 5vh 5vw 0vh;
-    background-color: transparent;
+    background-color: #dfe2e8;
   }
   
   .brand {
