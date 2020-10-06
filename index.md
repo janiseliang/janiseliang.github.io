@@ -11,7 +11,7 @@ UC Berkeley | expected class of spring 2023 | computer science and applied math 
 ### My Projects
 - **GamesCrafters:** solve and implement perfect computer player for 2-player abstract strategy games such as tic-tac-toe and Connect Four
 - **ASA Public Health Data Challenge:** won best overall high school team, see our visualizations [here][ada]
-- **Assistant Instructor:** Discrete Math & Probability Theory (fall 2020)
+- **Academic Intern:** Discrete Math & Probability Theory (fall 2020)
 
 ### Activities
 - Sports: club tennis, soccer, skiing
