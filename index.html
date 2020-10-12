@@ -23,6 +23,9 @@
                     ("ontouchstart"in o||o.DocumentTouch&&c instanceof DocumentTouch)&&(n.className+=t+"touch")
             }(window,document);
         </script>
+        <style>
+            li {font-family: Roboto, sans-serif; color: grey; font-size: 16px}
+        </style>
     </head>
     <body>
         <div>
@@ -33,7 +36,7 @@
                 <nav role="navigation" class="nav-menu w-nav-menu">
                     <a href="#about" aria-current="page" class="link-nav w-nav-link w--current">About me</a>
                     <a href="#projects" class="link-nav w-nav-link">Projects</a>
-                    <a href="#coursework" class="link-nav w-nav-link">Coursework</a>
+                    <a href="#courses" class="link-nav w-nav-link">Coursework</a>
                     <a href="#hobbies" class="link-nav w-nav-link">Hobbies</a>
                 </nav>
                 <div class="w-nav-button">
@@ -41,8 +44,8 @@
                 </div>
                 <div class="w-nav-overlay" data-wf-ignore=""></div>
             </div>
-            <div class="main_section" style="height:40vh; width: 100%">
-                <div class="_w-title">
+            <div class="main_section">
+                <div class="_w-title" style="height:40vh; width: 100%">
                     <div class="_w-h1">
                         <div class="main-h1" id="projects">hello world!</div>
                     </div>
@@ -69,12 +72,12 @@
                 <h2 class="h2" id="courses_head">coursework</h2>
                 <div id="current_courses">
                     <h4>In Progress:</h4>
-                    <p><ul>
+                    <ul>
                         <li>Machine Structures</li>
                         <li>Information Devices and Systems</li>
                         <li>Concepts of Statistics</li>
                         <li>Introduction to Analysis</li>
-                    </ul></p>
+                    </ul>
                 </div>
                 <div id="completed_courses">
                     <h4>Completed:</h4>
