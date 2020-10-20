@@ -27,6 +27,7 @@
             li {font-family: Roboto, sans-serif; color: grey; font-size: 16px; font-weight: 250}
             mini {font-size: 80%; font-weight: 300; color: grey}
             .navbar {position: fixed; padding: 1vh 5vw 0vh; background-color: white; height: 15vh; box-shadow: 0 2px 4px -1px rgba(0,0,0,0.25)}
+            .anchor::before {display: block; height: 60px; margin: -60px 0 0; }
         </style>
     </head>
     <body>
@@ -46,7 +47,7 @@
                 </div>
                 <div class="w-nav-overlay" data-wf-ignore=""></div>
             </div>
-            <a id="about"></a>
+            <div class="anchor" id="about"></div>
             <div class="main_section">
                 <div class="_w-title" style="height:40vh; width: 100%; margin-bottom:150px">
                     <div class="_w-h1">
@@ -54,7 +55,8 @@
                     </div>
                 </div>
             </div>
-            <div id="projects" class="next-project">
+            <div class="anchor" id="projects"></div>
+            <div class="next-project">
                 <h2 class="h2" id="projects_head">my projects</h2>
                 <p> - links: <a href="https://github.com/janiseliang">github</a> and <a href="https://www.linkedin.com/in/janise-liang-710141171/">linkedin</a></p>
                 <!--p>note: I can't share code publicly for my class projects, but I can share privately if requested!</p-->
@@ -62,7 +64,7 @@
                 <div id="gamescrafters">
                     <h4>GamesCrafters</h4>
                     <p>Worked with team to implement a perfect player for abstract strategy games such as Tic-Tac-Toe variants and Connect Four. Learned game theory and optimized hash functions to solve games more efficiently.
-                        I am currently working on implementing <a href="https://en.wikipedia.org/wiki/Hex_(board_game)">Hex</a>, a combinatorial board game where the goal is to create a path between opposite edges of the board before your opponent builds a perpendicular one.
+                        I am currently working on implementing <a href="https://en.wikipedia.org/wiki/Alquerque">Alquerque</a>, a combinatorial board game considered to be the parent of modern checkers/draughts.
                     </p>
                 </div>
                 <div id="ada">
@@ -72,7 +74,8 @@
                     </p>
                 </div>
             </div>
-            <div id="courses" class="next-project" style="padding-top:0vw">
+            <div class="anchor" id="courses"></div>
+            <div class="next-project" style="padding-top:0vw">
                 <h2 class="h2" id="courses_head">coursework</h2>
                 <div id="current_courses">
                     <h4>In Progress:</h4>
