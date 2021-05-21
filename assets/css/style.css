@@ -55,16 +55,16 @@ h1 {
   font-family: Arvo;
   color: #000;
   font-size: 14vh;
-  line-height: 14vh;
+  line-height: 120%;
   font-weight: 400;
 }
 
 h2 {
   margin-top: 0px;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   font-family: Arvo;
   font-size: 38px;
-  line-height: 48px;
+  line-height: 120%;
 }
   
 h3 {
@@ -224,11 +224,6 @@ img {
 .link:hover {
   background-image: none;
 }
-  
-.link.w--current {
-  position: relative;
-  text-decoration: line-through;
-}
 
 .big-link {
   margin-bottom: 10px;
@@ -256,22 +251,6 @@ img {
   -ms-flex: 1;
   flex: 1;
   border: 1px none #000;
-}
-  
-.column._100vh {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
-  flex-direction: column;
-  -webkit-box-align: center;
-  -webkit-align-items: center;
-  -ms-flex-align: center;
-  align-items: center;
 }
 
 .field {
@@ -326,14 +305,16 @@ img {
 	background: #f5f8fa;
 }
 
-table {
+.table {
+	display: table;
 	table-layout: fixed;
 	width: 100%;
 	font-family: Roboto, sans-serif;
 }
 
-tr {
+.entry {
 	margin-bottom: 20px;
+	display: table-row;
 }
 
 .section-category {
@@ -341,7 +322,8 @@ tr {
 	font-size: 30px;
 	color:#6e7c9f;
 	align-items: center;
-	vertical-align: top
+	vertical-align: top;
+	display: table-cell;
 }
 
 .entry-date {
@@ -349,12 +331,14 @@ tr {
 	vertical-align: top;
 	text-align: right;
 	color:#6e7c9f;
-	padding-right: 10px;
+	padding-right: 15px;
+	display: table-cell;
 }
 
 .entry-info {
 	color: black;
-	padding-bottom: 40px
+	padding-bottom: 40px;
+	display: table-cell;
 }
 
 .entry-title {
@@ -377,10 +361,6 @@ tr {
   color: #fff;
 }
 
-.paragraph-2 {
-  margin-bottom: 0px;
-}
-
 .project-description {
   color: #7a7a7a;
   font-size: 18px;
@@ -394,31 +374,33 @@ mini {
 	text-transform: none;
 }
 
-/* CUSTOM SCREENS */  
-@media (max-width: 618px) {
-  	.navbar {
-		text-align: center;
-		height: 150px;
+/* custom sizes */
+@media (max-width: 860px) {
+	.section.table, .entry, .section-category, .entry-date, .entry-info {
+		display: block;
+		width: 100%;
 	}
 	
-	.w-nav-brand img {
-		width: 50%;
-		margin-left: auto;
-		margin-right: auto;
+	.entry-date {
+		padding: 0px;
+	}
+}
+
+@media (max-width: 400px) { /* increase this max-width to account for longer nav menu */
+  	.navbar {
+		height: 130px;
+	}
+	
+	.nav-icon {
+		float: none;
 	}
 	
 	.nav-menu {
 		padding-top: 0px;
-		float: left;
+		float: none;
 	}
 	
 	main {
-		padding-top: 150px;
-	}
-
-	.anchor {
-		padding-top: 150px;
-		margin-top: -150px;
-		z-index: -1;
+		padding-top: 130px;
 	}
 }
