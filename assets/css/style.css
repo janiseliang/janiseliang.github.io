@@ -107,14 +107,13 @@ p {
 }
 
 a {
-  padding-bottom: 5px;
+  padding-bottom: 3px;
   box-shadow: inset 0 -2px 0 0 rgba(0, 0, 0, .1);
   transition: box-shadow 200ms ease, color 200ms ease;
   color: grey;
-  font-weight: 400;
   text-decoration: none;
-}
-  
+} 
+
 a:hover {
   box-shadow: inset 0 -2px 0 0 #000;
   color: #000;
@@ -127,7 +126,6 @@ ul {
 }
 
 li {
-	font-family: Roboto, sans-serif;
 	color: black;
 	font-size: 16px;
 	font-weight: 250;
@@ -187,101 +185,7 @@ img {
 	margin-top: -100px;
 	z-index: -1;
 }
-
-.link {
-  position: relative;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  height: auto;
-  padding: 0px;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -webkit-box-align: center;
-  -webkit-align-items: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-box-flex: 1;
-  -webkit-flex: 1;
-  -ms-flex: 1;
-  flex: 1;
-  border-style: none;
-  -webkit-transform: rotate(-90deg);
-  -ms-transform: rotate(-90deg);
-  transform: rotate(-90deg);
-  font-family: Roboto, sans-serif;
-  color: #9b9b9b;
-  font-size: 12px;
-  text-align: center;
-  letter-spacing: 1px;
-  text-decoration: none;
-  text-transform: uppercase;
-}
-  
-.link:hover {
-  background-image: none;
-}
-
-.big-link {
-  margin-bottom: 10px;
-  font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, serif;
-  color: #000;
-  font-size: 50px;
-  line-height: 80px;
-}
 /* END LINKS */
-
-.paragraph {
-  width: auto;
-  margin-bottom: 30px;
-  font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, serif;
-  color: #9b9b9b;
-  font-size: 20px;
-  line-height: 32px;
-  font-weight: 400;
-}
-  
-.column {
-  overflow: hidden;
-  -webkit-box-flex: 1;
-  -webkit-flex: 1;
-  -ms-flex: 1;
-  flex: 1;
-  border: 1px none #000;
-}
-
-.field {
-  height: 60px;
-  margin-bottom: 45px;
-  padding-left: 0px;
-  border-style: solid;
-  border-width: 1px;
-  border-color: #fff #fff #bbb;
-  font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, serif;
-  font-size: 22px;
-}
-
-.button {
-  padding: 25px 55px;
-  background-color: #000;
-  -webkit-transition: background-color 400ms ease, box-shadow 400ms ease, color 400ms ease;
-  transition: background-color 400ms ease, box-shadow 400ms ease, color 400ms ease;
-  font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, serif;
-  font-size: 18px;
-}
-
-.button:hover {
-  background-color: #fff;
-  box-shadow: inset 0 0 0 3px #000;
-  color: #000;
-}
-
-.container {
-  padding-top: 50px;
-}
 
 /* PROJECTS and SECTIONS */
 .title {
@@ -301,7 +205,7 @@ img {
 	padding: 3vw 5vw;
 }
 
-.section.blue {
+.blue {
 	background: #f5f8fa;
 }
 
@@ -310,6 +214,7 @@ img {
 	table-layout: fixed;
 	width: 100%;
 	font-family: Roboto, sans-serif;
+	padding-bottom: 1vw;
 }
 
 .entry {
@@ -344,26 +249,56 @@ img {
 .entry-title {
 	font-size: 25px;
 	font-weight: bold;
+	line-height: normal;
 }
 
 .entry-desc {
 	margin-top: 10px;
 	font-size: 18px;
+	line-height: normal;
 }
 
-.project-link {
-  box-shadow: inset 0 -2px 0 0 hsla(0, 0%, 100%, .2);
-  color: #fff;
+.collapse {
+	background-color: #b1b1b1;
+	font-family: Roboto, sans-serif;
+	font-size: 18px;
+	color: white;
+	cursor: pointer;
+	padding: 10px;
+	width: 100%;
+	border: none;
+	text-align: left;
 }
 
-.project-link:hover {
-  box-shadow: inset 0 -2px 0 0 #fff;
-  color: #fff;
+.collapse.open {
+	background-color: #999999;
 }
 
-.project-description {
-  color: #7a7a7a;
-  font-size: 18px;
+.collapse-arrow {
+	display: inline-block;
+	float: right;
+	width: 0;
+	height: 0;
+	margin-right: 10px;
+	border-top: 8px solid transparent;
+	border-bottom: 8px solid transparent; 
+	border-right: 10px solid #F1F1F1;
+}
+
+.open > .collapse-arrow {
+	transform: rotate(-90deg);
+}
+
+.gallery {
+	display: inline-block;
+	text-align: center;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	background-color: #f2f2f2;
+}
+
+.gallery > img {
+	padding: 10px;
 }
 
 /* Text */
@@ -383,6 +318,10 @@ mini {
 	
 	.entry-date {
 		padding: 0px;
+	}
+	
+	.entry-info {
+		padding-bottom: 0px;
 	}
 }
 
