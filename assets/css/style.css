@@ -326,7 +326,7 @@ mini {
 	}
 }
 
-@media (max-width: 400px) { /* increase this max-width to account for longer nav menu */
+@media (max-width: 412px) { /* increase this max-width to account for longer nav menu */
   	.navbar {
 		height: 130px;
 	}
