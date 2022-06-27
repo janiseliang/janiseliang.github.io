@@ -433,6 +433,7 @@ var score = 0
 
 function reset() {
   document.getElementById("history").innerHTML = "";
+  return getWord();
 }
 
 function getWord() {
@@ -468,7 +469,7 @@ function makeGuess(solution) {
   score++;
   if (guess == solution) {
     console.log("YAY", score)
-    document.getElementById("history").innerHTML += `<div>YAY! the word was ${solution}. score: ${score}</div>`
+    document.getElementById("history").innerHTML += `<div>YAY! the word was ${solution.toUpperCase()}. score: ${score}</div>`
     // game over
     return
   }
@@ -479,5 +480,5 @@ function makeGuess(solution) {
 }
 
 function surrender(solution) {
-  document.getElementById("history").innerHTML += `<div>You gave up after ${score} guesses :(</div><div>the word was ${solution}.</div>`
+  document.getElementById("history").innerHTML += `<div>You gave up after ${score} guess${score == 1 ? "" : "es"} :(</div><div>the word was ${solution.toUpperCase()}.</div>`
 }

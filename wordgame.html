@@ -14,7 +14,7 @@
 </head>
 <body>
 	<script>word=getWord()</script>
-  <input type="button" onclick="word=getWord(); reset();" value="restart game"/>
+  <input type="button" onclick="word=reset();" value="restart game"/>
 
 	<form onsubmit="makeGuess(word); return false;">
 		<input type="text" id="guess" autocomplete="off" autofocus/>
