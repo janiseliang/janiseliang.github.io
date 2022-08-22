@@ -315,7 +315,6 @@ img {
 }
 
 .collapse-arrow {
-	display: inline-block;
 	float: right;
 	width: 0;
 	height: 0;
