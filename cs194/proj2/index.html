@@ -1,0 +1,994 @@
+<!DOCTYPE html>
+<!-- saved from url=(0078)https://inst.eecs.berkeley.edu/~cs194-26/fa22/upload/files/proj2/cs194-26-abi/ -->
+<html style="font-size: 16px;" lang="en" class="u-responsive-xl"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <meta name="keywords" content="​Fun with Filters and Frequencies!, Finite Difference Operators, Derivative of Gaussian (DoG)">
+    <meta name="description" content="">
+    <title>Filters and Frequencies Fun</title>
+    <link rel="stylesheet" href="./index_files/nicepage.css" media="screen">
+<link rel="stylesheet" href="./index_files/Filters-and-Frequencies-Fun.css" media="screen">
+    <script class="u-script" type="text/javascript" src="./index_files/jquery-1.9.1.min.js.download" defer=""></script>
+    <script class="u-script" type="text/javascript" src="./index_files/nicepage.js.download" defer=""></script>
+    <meta name="generator" content="Nicepage 4.18.7, nicepage.com">
+    <link id="u-theme-google-font" rel="stylesheet" href="./index_files/css">
+    <link id="u-page-google-font" rel="stylesheet" href="./index_files/css(1)">
+    <script type="application/ld+json">{
+      "@context": "http://schema.org",
+      "@type": "Organization",
+      "name": "",
+      "url": "/"
+    }</script>
+    <meta name="theme-color" content="#478ac9">
+    <meta property="og:title" content="Filters and Frequencies Fun">
+    <meta property="og:type" content="website">
+    <link rel="canonical" href="https://inst.eecs.berkeley.edu/">
+  </head>
+  <body data-home-page="https://website2771520-1.nicepage.io/Filters-and-Frequencies-Fun.html?version=1ba0fbd2-5311-47e8-a6f8-073fbea4d184" data-home-page-title="Filters and Frequencies Fun" class="u-body u-xl-mode" data-lang="en">
+    <section class="u-clearfix u-section-1" id="sec-e3e4">
+      <div class="u-clearfix u-sheet u-sheet-1">
+        <h1 class="u-text u-text-default u-text-1"> Fun with Filters and Frequencies!</h1>
+        <p class="u-text u-text-default u-text-2">Janise Liang </p>
+      </div>
+    </section>
+    <section class="u-align-center u-clearfix u-section-2" id="sec-4eea">
+      <div class="u-align-left u-clearfix u-sheet u-sheet-1">
+        <img class="u-image u-image-default u-image-1" src="./index_files/cameraman.png" alt="" data-image-width="540" data-image-height="542">
+        <h2 class="u-text u-text-default u-text-1">Finite Difference Operators<br>
+        </h2>
+        <p class="u-text u-text-2">We can convolve the cameraman image with both a horizontal difference operator (Dx) and a vertical difference operator (Dy).<br>
+        </p>
+        <p class="u-text u-text-3">Then, in order to display the actual edges, we compute a gradient magnitude image from the horizontal and vertical components.</p>
+        <img class="u-image u-image-contain u-image-default u-image-2" src="./index_files/image.png" alt="" data-image-width="331" data-image-height="100">
+        <img class="u-image u-image-contain u-image-default u-image-3" src="./index_files/image-4.png" alt="" data-image-width="273" data-image-height="152">
+        <img class="u-image u-image-contain u-image-default u-image-4" src="./index_files/image-7.png" alt="" data-image-width="495" data-image-height="176">
+        <div class="u-expanded-width u-gallery u-layout-grid u-lightbox u-show-text-always u-gallery-1" data-pswp-uid="1">
+          <div class="u-gallery-inner u-gallery-inner-1">
+            <div class="u-gallery-item u-gallery-item-1" data-pswp-item-id="0" data-gallery-uid="1">
+              <div class="u-back-slide" data-image-width="540" data-image-height="542">
+                <img class="u-back-image u-expanded" src="./index_files/cameraman_dx.jpg" alt="horizontal difference operator">
+              </div>
+              <div class="u-over-slide u-over-slide-1">
+                <h3 class="u-gallery-heading u-text-body-alt-color">horizontal difference operator</h3>
+                <p class="u-gallery-text u-text-body-alt-color">(partial X)</p>
+              </div>
+            </div>
+            <div class="u-gallery-item u-gallery-item-2" data-pswp-item-id="1" data-gallery-uid="1">
+              <div class="u-back-slide" data-image-width="540" data-image-height="542">
+                <img class="u-back-image u-expanded" src="./index_files/cameraman_dy.jpg" alt="vertical difference operator">
+              </div>
+              <div class="u-over-slide u-over-slide-2">
+                <h3 class="u-gallery-heading u-text-body-alt-color">vertical difference operator</h3>
+                <p class="u-gallery-text u-text-body-alt-color">(partial Y)</p>
+              </div>
+            </div>
+            <div class="u-gallery-item u-gallery-item-3" data-pswp-item-id="2" data-gallery-uid="1">
+              <div class="u-back-slide" data-image-width="540" data-image-height="542">
+                <img class="u-back-image u-expanded" src="./index_files/cameraman_grad_mag.jpg" alt="gradient magnitude">
+              </div>
+              <div class="u-over-slide u-over-slide-3">
+                <h3 class="u-gallery-heading u-text-body-alt-color">gradient magnitude</h3>
+                <p class="u-gallery-text u-text-body-alt-color"></p>
+              </div>
+            </div>
+            <div class="u-gallery-item u-gallery-item-4" data-pswp-item-id="3" data-gallery-uid="1">
+              <div class="u-back-slide" data-image-width="540" data-image-height="542">
+                <img class="u-back-image u-expanded" src="./index_files/cameraman_edges.jpg" alt="">
+              </div>
+              <div class="u-over-slide u-over-slide-4">
+                <h3 class="u-gallery-heading u-text-body-alt-color">binarized gradient magnitude</h3>
+                <p class="u-gallery-text u-text-body-alt-color">(threshold 0.26)</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="u-clearfix u-section-3" id="sec-387c">
+      <div class="u-clearfix u-sheet u-sheet-1">
+        <h2 class="u-text u-text-default u-text-1">Derivative of Gaussian (DoG)<br>
+        </h2>
+        <p class="u-text u-text-default u-text-2">Convolving with a gaussian kernel first will create a blurred image of the cameraman. Then, we can repeat the previous process on the smoothed image. This generates edges that are much thicker due to the blurriness of the input image. I also had to decrease the threshold to around 0.04 to get the edges to show. This is likely because the gradient is not as "sharp" since we're making the lines more blurry, so the pixel intensity changes less rapidly.</p>
+        <img class="u-image u-image-default u-image-1" src="./index_files/cameraman_blurred.jpg" alt="" data-image-width="540" data-image-height="542">
+        <div class="u-expanded-width u-gallery u-layout-grid u-lightbox u-show-text-always u-gallery-1" data-pswp-uid="2">
+          <div class="u-gallery-inner u-gallery-inner-1">
+            <div class="u-gallery-item u-gallery-item-1" data-pswp-item-id="0" data-gallery-uid="2">
+              <div class="u-back-slide" data-image-width="540" data-image-height="542">
+                <img class="u-back-image u-expanded" src="./index_files/cameraman_blurred_dx.jpg" alt="horizontal difference (blurred)">
+              </div>
+              <div class="u-over-slide u-over-slide-1">
+                <h3 class="u-gallery-heading u-text-body-alt-color">horizontal difference (blurred)</h3>
+                <p class="u-gallery-text u-text-body-alt-color">(partial X)</p>
+              </div>
+            </div>
+            <div class="u-gallery-item u-gallery-item-2" data-pswp-item-id="1" data-gallery-uid="2">
+              <div class="u-back-slide" data-image-width="540" data-image-height="542">
+                <img class="u-back-image u-expanded" src="./index_files/cameraman_blurred_dy.jpg" alt="vertical difference (blurred)">
+              </div>
+              <div class="u-over-slide u-over-slide-2">
+                <h3 class="u-gallery-heading u-text-body-alt-color">vertical difference (blurred)</h3>
+                <p class="u-gallery-text u-text-body-alt-color">(partial Y)</p>
+              </div>
+            </div>
+            <div class="u-gallery-item u-gallery-item-3" data-pswp-item-id="2" data-gallery-uid="2">
+              <div class="u-back-slide" data-image-width="540" data-image-height="542">
+                <img class="u-back-image u-expanded" src="./index_files/cameraman_blurred_grad_mag.jpg" alt="">
+              </div>
+              <div class="u-over-slide u-over-slide-3">
+                <h3 class="u-gallery-heading u-text-body-alt-color">gradient magnitude (blurred)</h3>
+                <p class="u-gallery-text u-text-body-alt-color"></p>
+              </div>
+            </div>
+            <div class="u-gallery-item u-gallery-item-4" data-pswp-item-id="3" data-gallery-uid="2">
+              <div class="u-back-slide" data-image-width="540" data-image-height="542">
+                <img class="u-back-image u-expanded" src="./index_files/cameraman_blurred_edges.jpg" alt="">
+              </div>
+              <div class="u-over-slide u-over-slide-4">
+                <h3 class="u-gallery-heading u-text-body-alt-color">binarized gradient magnitude (blurred)</h3>
+                <p class="u-gallery-text u-text-body-alt-color">(threshold 0.04)</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="u-clearfix u-section-4" id="sec-36e4">
+      <div class="u-clearfix u-sheet u-sheet-1">
+        <p class="u-align-left u-text u-text-default u-text-1">Alternatively, we could instead convolve the Dx and Dy operators with the gaussian kernel first, and then convolve the resulting filters with the image. This is more optimal, since it means we don't have to blur the image before convolving with Dx and Dy. We also can verify that the results look exactly the same for both methods.</p>
+        <img class="u-image u-image-contain u-image-default u-image-1" src="./index_files/dogfilter.jpg" alt="" data-image-width="759" data-image-height="328">
+        <div class="u-expanded-width u-gallery u-layout-grid u-lightbox u-show-text-always u-gallery-1" data-pswp-uid="3">
+          <div class="u-gallery-inner u-gallery-inner-1">
+            <div class="u-gallery-item u-gallery-item-1" data-pswp-item-id="0" data-gallery-uid="3">
+              <div class="u-back-slide" data-image-width="540" data-image-height="542">
+                <img class="u-back-image u-expanded" src="./index_files/cameraman_gaussian_dx.jpg" alt="horizontal difference (DoG)">
+              </div>
+              <div class="u-over-slide u-over-slide-1">
+                <h3 class="u-gallery-heading u-text-body-alt-color">horizontal difference (DoG)</h3>
+                <p class="u-gallery-text u-text-body-alt-color">(partial X)</p>
+              </div>
+            </div>
+            <div class="u-gallery-item u-gallery-item-2" data-pswp-item-id="1" data-gallery-uid="3">
+              <div class="u-back-slide" data-image-width="540" data-image-height="542">
+                <img class="u-back-image u-expanded" src="./index_files/cameraman_gaussian_dy.jpg" alt="vertical difference (DoG)">
+              </div>
+              <div class="u-over-slide u-over-slide-2">
+                <h3 class="u-gallery-heading u-text-body-alt-color">vertical difference (DoG)</h3>
+                <p class="u-gallery-text u-text-body-alt-color">(partial Y)</p>
+              </div>
+            </div>
+            <div class="u-gallery-item u-gallery-item-3" data-pswp-item-id="2" data-gallery-uid="3">
+              <div class="u-back-slide" data-image-width="540" data-image-height="542">
+                <img class="u-back-image u-expanded" src="./index_files/cameraman_gaussian_binarized.jpg" alt="binarized (DoG)">
+              </div>
+              <div class="u-over-slide u-over-slide-3">
+                <h3 class="u-gallery-heading u-text-body-alt-color">binarized (DoG)</h3>
+                <p class="u-gallery-text u-text-body-alt-color">(threshold 0.04)</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="u-clearfix u-section-5" id="sec-bd11">
+      <div class="u-clearfix u-sheet u-sheet-1">
+        <h2 class="u-text u-text-default u-text-1">Image "Sharpening" (aka unsharp masking)</h2>
+        <p class="u-text u-text-default u-text-2">In this technique, we use a gaussian filter (size 20, sigma 4) to obtain the low-frequency part of the image. Then, we subtract the low frequencies from the original image and obtain only the high-frequency parts.<br>
+          <br>I experimented with adding different multiples (​alpha) of the high-frequency part to see if the image got any better. However, I only noticed higher color contrast and additional blocky artifacts for the higher multiples. An alpha of 0.5 seems to produce the most natural-looking result on the Taj Mahal image.<br>
+        </p>
+        <img class="u-image u-image-contain u-image-default u-image-1" src="./index_files/unsharp_mask.png" alt="" data-image-width="561" data-image-height="101">
+        <div class="u-expanded-width u-gallery u-layout-grid u-lightbox u-show-text-always u-gallery-1" data-pswp-uid="4">
+          <div class="u-gallery-inner u-gallery-inner-1">
+            <div class="u-gallery-item" data-pswp-item-id="0" data-gallery-uid="4">
+              <div class="u-back-slide" data-image-width="300" data-image-height="300">
+                <img class="u-back-image u-expanded" src="./index_files/taj.jpg" alt="original taj">
+              </div>
+              <div class="u-over-slide u-over-slide-1">
+                <h3 class="u-gallery-heading u-text-body-alt-color">original taj</h3>
+                <p class="u-gallery-text u-text-body-alt-color"></p>
+              </div>
+            </div>
+            <div class="u-gallery-item" data-pswp-item-id="1" data-gallery-uid="4">
+              <div class="u-back-slide" data-image-width="300" data-image-height="300">
+                <img class="u-back-image u-expanded" src="./index_files/sharp_taj_a0.5.jpg" alt="alpha = 0.5">
+              </div>
+              <div class="u-over-slide u-over-slide-2">
+                <h3 class="u-gallery-heading u-text-body-alt-color">alpha = 0.5</h3>
+                <p class="u-gallery-text u-text-body-alt-color"></p>
+              </div>
+            </div>
+            <div class="u-gallery-item" data-pswp-item-id="2" data-gallery-uid="4">
+              <div class="u-back-slide" data-image-width="300" data-image-height="300">
+                <img class="u-back-image u-expanded" src="./index_files/sharp_taj_a1.jpg" alt="alpha = 1">
+              </div>
+              <div class="u-over-slide u-over-slide-3">
+                <h3 class="u-gallery-heading u-text-body-alt-color">alpha = 1</h3>
+                <p class="u-gallery-text u-text-body-alt-color"></p>
+              </div>
+            </div>
+            <div class="u-gallery-item" data-pswp-item-id="3" data-gallery-uid="4">
+              <div class="u-back-slide" data-image-width="300" data-image-height="300">
+                <img class="u-back-image u-expanded" src="./index_files/sharp_taj_a2.jpg" alt="alpha = 2">
+              </div>
+              <div class="u-over-slide u-over-slide-4">
+                <h3 class="u-gallery-heading u-text-body-alt-color">alpha = 2</h3>
+                <p class="u-gallery-text u-text-body-alt-color"></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="u-clearfix u-section-6" id="sec-0431">
+      <div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
+        <p class="u-align-left u-text u-text-default u-text-1">I also started with some sharp images, applied a gaussian blur to them, and then attempted to recover the original sharp image. Since we are basically throwing away data when we blur an image, it is not possible to fully recover the original. However, the unsharp mask recovers a lot of the sharpness, especially after tweaking parameters.</p>
+        <div class="u-expanded-width u-list u-list-1">
+          <div class="u-repeater u-repeater-1">
+            <div class="u-container-style u-list-item u-repeater-item">
+              <div class="u-container-layout u-similar-container u-valign-top u-container-layout-1">
+                <img class="u-expanded-width u-image u-image-1" src="./index_files/campanile.jpg" data-image-width="1620" data-image-height="1080">
+                <h5 class="u-custom-font u-text u-text-default u-text-font u-text-2">original image (very sharp)</h5>
+              </div>
+            </div>
+            <div class="u-container-style u-list-item u-repeater-item">
+              <div class="u-container-layout u-similar-container u-valign-top u-container-layout-2">
+                <img class="u-expanded-width u-image u-image-2" src="./index_files/campanile-26.jpg" data-image-width="1920" data-image-height="1280">
+                <h5 class="u-custom-font u-text u-text-default u-text-font u-text-3">blurred image</h5>
+              </div>
+            </div>
+            <div class="u-container-style u-list-item u-repeater-item">
+              <div class="u-container-layout u-similar-container u-valign-top u-container-layout-3">
+                <img class="u-expanded-width u-image u-image-3" src="./index_files/sharp_campanile_a1.jpg" data-image-width="1620" data-image-height="1080">
+                <h5 class="u-custom-font u-text u-text-default u-text-font u-text-4">recovered image</h5>
+              </div>
+            </div>
+            <div class="u-container-style u-list-item u-repeater-item">
+              <div class="u-container-layout u-similar-container u-valign-top u-container-layout-4">
+                <img class="u-expanded-width u-image u-image-4" src="./index_files/campanile_lowpass_c0.jpg" data-image-width="1920" data-image-height="1280">
+                <h5 class="u-custom-font u-text u-text-default u-text-font u-text-5">blurred image (low freqs)</h5>
+              </div>
+            </div>
+            <div class="u-container-style u-list-item u-repeater-item">
+              <div class="u-container-layout u-similar-container u-valign-top u-container-layout-5">
+                <img class="u-expanded-width u-image u-image-5" src="./index_files/campanile_highpass_c0.jpg" data-image-width="1920" data-image-height="1280">
+                <h5 class="u-custom-font u-text u-text-default u-text-font u-text-6">original&nbsp;– blur (high freqs)</h5>
+              </div>
+            </div>
+            <div class="u-container-style u-list-item u-repeater-item">
+              <div class="u-container-layout u-similar-container u-valign-top u-container-layout-6">
+                <img class="u-expanded-width u-image u-image-6" src="./index_files/campanile_final_c0.jpg" data-image-width="1920" data-image-height="1280">
+                <h5 class="u-custom-font u-text u-text-default u-text-font u-text-7">original + alpha*high_freqs</h5>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="u-expanded-width u-list u-list-2">
+          <div class="u-repeater u-repeater-2">
+            <div class="u-container-style u-list-item u-repeater-item">
+              <div class="u-container-layout u-similar-container u-container-layout-7">
+                <img class="u-expanded-width u-image u-image-7" src="./index_files/autumn.jpg" data-image-width="816" data-image-height="1080">
+                <h5 class="u-custom-font u-text u-text-default u-text-font u-text-8">original image (bad camera)</h5>
+              </div>
+            </div>
+            <div class="u-container-style u-list-item u-repeater-item">
+              <div class="u-container-layout u-similar-container u-container-layout-8">
+                <img class="u-expanded-width u-image u-image-8" src="./index_files/autumn.jpg" data-image-width="816" data-image-height="1080">
+                <h5 class="u-custom-font u-text u-text-default u-text-font u-text-9">sharpened image</h5>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="u-clearfix u-section-7" id="sec-55a3">
+      <div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
+        <h2 class="u-text u-text-default u-text-1">Hybrid Images</h2>
+        <p class="u-text u-text-default u-text-2">Hybrid images can be created by combining the low frequencies of one image and the high frequencies of the other. We first must align the images by selecting two anchor points - in my images, I use the eyes of whatever creatures make up the hybrid. Similar to the previous part, I added a scalar multiple of the high frequencies (alpha) to help with adjusting the images.</p>
+        <div class="u-expanded-width u-list u-list-1">
+          <div class="u-repeater u-repeater-1">
+            <div class="u-container-style u-list-item u-repeater-item">
+              <div class="u-container-layout u-similar-container u-container-layout-1">
+                <img alt="" class="u-expanded-width u-image u-image-default u-image-1" data-image-width="730" data-image-height="900" src="./index_files/derek_aligned.jpg">
+                <h5 class="u-custom-font u-text u-text-default u-text-font u-text-3">derek (low-freq source)</h5>
+              </div>
+            </div>
+            <div class="u-container-style u-list-item u-repeater-item">
+              <div class="u-container-layout u-similar-container u-container-layout-2">
+                <img alt="" class="u-expanded-width u-image u-image-default u-image-2" data-image-width="730" data-image-height="900" src="./index_files/nutmeg_aligned.jpg">
+                <h5 class="u-custom-font u-text u-text-default u-text-font u-text-4">nutmeg (high-freq source)</h5>
+              </div>
+            </div>
+            <div class="u-container-style u-list-item u-repeater-item">
+              <div class="u-container-layout u-similar-container u-container-layout-3">
+                <img alt="" class="u-expanded-width u-image u-image-default u-image-3" data-image-width="730" data-image-height="900" src="./index_files/deremeg.jpg">
+                <h5 class="u-custom-font u-text u-text-default u-text-font u-text-5">deremeg (alpha = 1.1)</h5>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="u-expanded-width u-list u-list-2">
+          <div class="u-repeater u-repeater-2">
+            <div class="u-container-style u-list-item u-repeater-item">
+              <div class="u-container-layout u-similar-container u-container-layout-4">
+                <img alt="" class="u-expanded-width u-image u-image-default u-image-4" data-image-width="691" data-image-height="573" src="./index_files/dog_aligned.jpg">
+                <h5 class="u-custom-font u-text u-text-default u-text-font u-text-6">dog</h5>
+              </div>
+            </div>
+            <div class="u-container-style u-list-item u-repeater-item">
+              <div class="u-container-layout u-similar-container u-container-layout-5">
+                <img alt="" class="u-expanded-width u-image u-image-default u-image-5" data-image-width="691" data-image-height="573" src="./index_files/tiger_aligned.jpg">
+                <h5 class="u-custom-font u-text u-text-default u-text-font u-text-7">tiger</h5>
+              </div>
+            </div>
+            <div class="u-container-style u-list-item u-repeater-item">
+              <div class="u-container-layout u-similar-container u-container-layout-6">
+                <img alt="" class="u-expanded-width u-image u-image-default u-image-6" data-image-width="691" data-image-height="573" src="./index_files/dogcat.jpg">
+                <h5 class="u-custom-font u-text u-text-default u-text-font u-text-8">dog-tiger (alpha = 1.4)</h5>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="u-expanded-width u-list u-list-3">
+          <div class="u-repeater u-repeater-3">
+            <div class="u-container-style u-list-item u-repeater-item">
+              <div class="u-container-layout u-similar-container u-container-layout-7">
+                <img alt="" class="u-expanded-width u-image u-image-default u-image-7" data-image-width="460" data-image-height="548" src="./index_files/po_aligned.jpg">
+                <h5 class="u-custom-font u-text u-text-default u-text-font u-text-9">po</h5>
+              </div>
+            </div>
+            <div class="u-container-style u-list-item u-repeater-item">
+              <div class="u-container-layout u-similar-container u-container-layout-8">
+                <img alt="" class="u-expanded-width u-image u-image-default u-image-8" data-image-width="460" data-image-height="548" src="./index_files/jackblack_aligned.jpg">
+                <h5 class="u-custom-font u-text u-text-default u-text-font u-text-10">jack black (po voice actor)</h5>
+              </div>
+            </div>
+            <div class="u-container-style u-list-item u-repeater-item">
+              <div class="u-container-layout u-similar-container u-container-layout-9">
+                <img alt="" class="u-expanded-width u-image u-image-default u-image-9" data-image-width="460" data-image-height="548" src="./index_files/kung_fu_panda.jpg">
+                <h5 class="u-custom-font u-text u-text-default u-text-font u-text-11">po-jack (alpha = 3)</h5>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="u-clearfix u-section-8" id="sec-e3aa">
+      <div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
+        <p class="u-text u-text-default u-text-1"> I found that the images that worked best were the ones that had a somewhat similar face shape or foreground shape. Since Po's face is chubbier than Jack Black's we see a little bit too much of Po's face on the right side of the image. This could be fixed by stretching parts of the image (next project :D).<br>
+          <br>For most images, I adjusted the Gaussian kernel size and sigma, as well as the alpha value, in order to get a better result for the hybrid images. I was also able to implement color images easily by processing each channel separately, then simply combining the final result into a 3-channel color image.<br>
+          <br>
+          <span style="font-weight: 700;">Failed Case</span>
+          <br> Unfortunately, some attempts at hybrid images did not work out so well. I think this is mostly because the shape of Grogu's and Oogway's heads are very different. I'm not sure why I imagined them to be similar...
+        </p>
+        <div class="u-expanded-width u-list u-list-1">
+          <div class="u-repeater u-repeater-1">
+            <div class="u-container-style u-list-item u-repeater-item">
+              <div class="u-container-layout u-similar-container u-container-layout-1">
+                <img alt="" class="u-expanded-width u-image u-image-default u-image-1" data-image-width="857" data-image-height="493" src="./index_files/grogu_aligned.jpg">
+                <h5 class="u-custom-font u-text u-text-default u-text-font u-text-2">grogu</h5>
+              </div>
+            </div>
+            <div class="u-container-style u-list-item u-repeater-item">
+              <div class="u-container-layout u-similar-container u-container-layout-2">
+                <img alt="" class="u-expanded-width u-image u-image-default u-image-2" data-image-width="857" data-image-height="493" src="./index_files/oogway_aligned.jpg">
+                <h5 class="u-custom-font u-text u-text-default u-text-font u-text-3">master oogway</h5>
+              </div>
+            </div>
+            <div class="u-container-style u-list-item u-repeater-item">
+              <div class="u-container-layout u-similar-container u-container-layout-3">
+                <img alt="" class="u-expanded-width u-image u-image-default u-image-3" data-image-width="857" data-image-height="493" src="./index_files/groogway.jpg">
+                <h5 class="u-custom-font u-text u-text-default u-text-font u-text-4">groogway</h5>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="u-clearfix u-valign-middle u-section-9" id="sec-256b">
+      <p class="u-text u-text-default u-text-1">Log magnitude of Fourier transforms for <span style="font-weight: 700;">po-j</span>
+        <span style="font-weight: 700;">ack</span>
+      </p>
+      <img class="u-expanded-width u-image u-image-contain u-image-default u-image-1" src="./index_files/fft_inputs.jpg" alt="" data-image-width="864" data-image-height="576">
+      <img class="u-image u-image-contain u-image-default u-image-2" src="./index_files/fft_kfp.jpg" alt="" data-image-width="432" data-image-height="288">
+    </section>
+    <section class="u-clearfix u-section-10" id="sec-925c">
+      <div class="u-clearfix u-sheet u-sheet-1">
+        <h2 class="u-text u-text-default u-text-1">Gaussian and Laplacian Stacks</h2>
+        <p class="u-text u-text-default u-text-2">For the Gaussian stack, we can simply convolve a Gaussian kernel repetitively on the image. Then, we create the Laplacian stack by computing the difference between each of the elements of the Gaussian stack. The final level of the Laplacian stack is equal to the last Gaussian element since there is nothing else to subtract.<br>
+          <br>The original image can be recovered by summing all of the Laplacian levels. We will use this when performing multiresolution blending.&nbsp;
+        </p>
+        <div class="u-expanded-width u-gallery u-layout-grid u-lightbox u-show-text-none u-gallery-1" data-pswp-uid="5">
+          <div class="u-gallery-inner u-gallery-inner-1">
+            <div class="u-gallery-item" data-image-width="438" data-image-height="508" data-pswp-item-id="0" data-gallery-uid="5">
+              <div class="u-back-slide" data-image-width="460" data-image-height="548">
+                <img class="u-back-image u-expanded" src="./index_files/kung_fu_panda.jpg">
+              </div>
+              <div class="u-over-slide u-shading u-over-slide-1">
+                <h3 class="u-gallery-heading"></h3>
+                <p class="u-gallery-text"></p>
+              </div>
+            </div>
+            <div class="u-gallery-item" data-image-width="438" data-image-height="508" data-pswp-item-id="1" data-gallery-uid="5">
+              <div class="u-back-slide" data-image-width="460" data-image-height="548">
+                <img class="u-back-image u-expanded" src="./index_files/gaussian1.jpg">
+              </div>
+              <div class="u-over-slide u-shading u-over-slide-2">
+                <h3 class="u-gallery-heading"></h3>
+                <p class="u-gallery-text"></p>
+              </div>
+            </div>
+            <div class="u-gallery-item" data-image-width="438" data-image-height="508" data-pswp-item-id="2" data-gallery-uid="5">
+              <div class="u-back-slide" data-image-width="460" data-image-height="548">
+                <img class="u-back-image u-expanded" src="./index_files/gaussian2.jpg">
+              </div>
+              <div class="u-over-slide u-shading u-over-slide-3">
+                <h3 class="u-gallery-heading"></h3>
+                <p class="u-gallery-text"></p>
+              </div>
+            </div>
+            <div class="u-gallery-item" data-image-width="438" data-image-height="508" data-pswp-item-id="3" data-gallery-uid="5">
+              <div class="u-back-slide" data-image-width="460" data-image-height="548">
+                <img class="u-back-image u-expanded" src="./index_files/gaussian3.jpg">
+              </div>
+              <div class="u-over-slide u-shading u-over-slide-4">
+                <h3 class="u-gallery-heading"></h3>
+                <p class="u-gallery-text"></p>
+              </div>
+            </div>
+            <div class="u-gallery-item" data-image-width="438" data-image-height="508" data-pswp-item-id="4" data-gallery-uid="5">
+              <div class="u-back-slide" data-image-width="460" data-image-height="548">
+                <img class="u-back-image u-expanded" src="./index_files/gaussian4.jpg">
+              </div>
+              <div class="u-over-slide u-shading u-over-slide-5">
+                <h3 class="u-gallery-heading"></h3>
+                <p class="u-gallery-text"></p>
+              </div>
+            </div>
+            <div class="u-gallery-item" data-image-width="438" data-image-height="508" data-pswp-item-id="5" data-gallery-uid="5">
+              <div class="u-back-slide" data-image-width="460" data-image-height="548">
+                <img class="u-back-image u-expanded" src="./index_files/laplacian0.jpg">
+              </div>
+              <div class="u-over-slide u-shading u-over-slide-6">
+                <h3 class="u-gallery-heading"></h3>
+                <p class="u-gallery-text"></p>
+              </div>
+            </div>
+            <div class="u-gallery-item" data-image-width="438" data-image-height="508" data-pswp-item-id="6" data-gallery-uid="5">
+              <div class="u-back-slide" data-image-width="460" data-image-height="548">
+                <img class="u-back-image u-expanded" src="./index_files/laplacian1.jpg">
+              </div>
+              <div class="u-over-slide u-shading u-over-slide-7">
+                <h3 class="u-gallery-heading"></h3>
+                <p class="u-gallery-text"></p>
+              </div>
+            </div>
+            <div class="u-gallery-item" data-image-width="438" data-image-height="508" data-pswp-item-id="7" data-gallery-uid="5">
+              <div class="u-back-slide" data-image-width="460" data-image-height="548">
+                <img class="u-back-image u-expanded" src="./index_files/laplacian2.jpg">
+              </div>
+              <div class="u-over-slide u-shading u-over-slide-8">
+                <h3 class="u-gallery-heading"></h3>
+                <p class="u-gallery-text"></p>
+              </div>
+            </div>
+            <div class="u-gallery-item" data-image-width="438" data-image-height="508" data-pswp-item-id="8" data-gallery-uid="5">
+              <div class="u-back-slide" data-image-width="460" data-image-height="548">
+                <img class="u-back-image u-expanded" src="./index_files/laplacian3.jpg">
+              </div>
+              <div class="u-over-slide u-shading u-over-slide-9">
+                <h3 class="u-gallery-heading"></h3>
+                <p class="u-gallery-text"></p>
+              </div>
+            </div>
+            <div class="u-gallery-item" data-image-width="438" data-image-height="508" data-pswp-item-id="9" data-gallery-uid="5">
+              <div class="u-back-slide" data-image-width="460" data-image-height="548">
+                <img class="u-back-image u-expanded" src="./index_files/laplacian4.jpg">
+              </div>
+              <div class="u-over-slide u-shading u-over-slide-10">
+                <h3 class="u-gallery-heading"></h3>
+                <p class="u-gallery-text"></p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <p class="u-text u-text-3">Above: Gaussian and Laplacian stacks for po-jack single (R) channel. The Laplacians have been min-max normalized in order to improve image contrast and visibility.</p>
+        <div class="u-expanded-width u-gallery u-layout-grid u-lightbox u-show-text-none u-gallery-2" data-pswp-uid="6">
+          <div class="u-gallery-inner u-gallery-inner-2">
+            <div class="u-gallery-item" data-image-width="406" data-image-height="285" data-pswp-item-id="0" data-gallery-uid="6">
+              <div class="u-back-slide" data-image-width="406" data-image-height="285">
+                <img class="u-back-image u-expanded" src="./index_files/oraple.jpg">
+              </div>
+              <div class="u-over-slide u-shading u-over-slide-11">
+                <h3 class="u-gallery-heading"></h3>
+                <p class="u-gallery-text"></p>
+              </div>
+            </div>
+            <div class="u-gallery-item" data-image-width="406" data-image-height="285" data-pswp-item-id="1" data-gallery-uid="6">
+              <div class="u-back-slide" data-image-width="406" data-image-height="285">
+                <img class="u-back-image u-expanded" src="./index_files/oraple_gauss1.jpg">
+              </div>
+              <div class="u-over-slide u-shading u-over-slide-12">
+                <h3 class="u-gallery-heading"></h3>
+                <p class="u-gallery-text"></p>
+              </div>
+            </div>
+            <div class="u-gallery-item" data-image-width="406" data-image-height="285" data-pswp-item-id="2" data-gallery-uid="6">
+              <div class="u-back-slide" data-image-width="406" data-image-height="285">
+                <img class="u-back-image u-expanded" src="./index_files/oraple_gauss2.jpg">
+              </div>
+              <div class="u-over-slide u-shading u-over-slide-13">
+                <h3 class="u-gallery-heading"></h3>
+                <p class="u-gallery-text"></p>
+              </div>
+            </div>
+            <div class="u-gallery-item" data-image-width="406" data-image-height="285" data-pswp-item-id="3" data-gallery-uid="6">
+              <div class="u-back-slide" data-image-width="406" data-image-height="285">
+                <img class="u-back-image u-expanded" src="./index_files/oraple_gauss3.jpg">
+              </div>
+              <div class="u-over-slide u-shading u-over-slide-14">
+                <h3 class="u-gallery-heading"></h3>
+                <p class="u-gallery-text"></p>
+              </div>
+            </div>
+            <div class="u-gallery-item" data-image-width="406" data-image-height="285" data-pswp-item-id="4" data-gallery-uid="6">
+              <div class="u-back-slide" data-image-width="406" data-image-height="285">
+                <img class="u-back-image u-expanded" src="./index_files/oraple_gauss4.jpg">
+              </div>
+              <div class="u-over-slide u-shading u-over-slide-15">
+                <h3 class="u-gallery-heading"></h3>
+                <p class="u-gallery-text"></p>
+              </div>
+            </div>
+            <div class="u-gallery-item" data-image-width="406" data-image-height="285" data-pswp-item-id="5" data-gallery-uid="6">
+              <div class="u-back-slide" data-image-width="406" data-image-height="285">
+                <img class="u-back-image u-expanded" src="./index_files/oraple_laplacian0.jpg">
+              </div>
+              <div class="u-over-slide u-shading u-over-slide-16">
+                <h3 class="u-gallery-heading"></h3>
+                <p class="u-gallery-text"></p>
+              </div>
+            </div>
+            <div class="u-gallery-item" data-image-width="406" data-image-height="285" data-pswp-item-id="6" data-gallery-uid="6">
+              <div class="u-back-slide" data-image-width="406" data-image-height="285">
+                <img class="u-back-image u-expanded" src="./index_files/oraple_laplacian1.jpg">
+              </div>
+              <div class="u-over-slide u-shading u-over-slide-17">
+                <h3 class="u-gallery-heading"></h3>
+                <p class="u-gallery-text"></p>
+              </div>
+            </div>
+            <div class="u-gallery-item" data-image-width="406" data-image-height="285" data-pswp-item-id="7" data-gallery-uid="6">
+              <div class="u-back-slide" data-image-width="406" data-image-height="285">
+                <img class="u-back-image u-expanded" src="./index_files/oraple_laplacian2.jpg">
+              </div>
+              <div class="u-over-slide u-shading u-over-slide-18">
+                <h3 class="u-gallery-heading"></h3>
+                <p class="u-gallery-text"></p>
+              </div>
+            </div>
+            <div class="u-gallery-item" data-image-width="406" data-image-height="285" data-pswp-item-id="8" data-gallery-uid="6">
+              <div class="u-back-slide" data-image-width="406" data-image-height="285">
+                <img class="u-back-image u-expanded" src="./index_files/oraple_laplacian3.jpg">
+              </div>
+              <div class="u-over-slide u-shading u-over-slide-19">
+                <h3 class="u-gallery-heading"></h3>
+                <p class="u-gallery-text"></p>
+              </div>
+            </div>
+            <div class="u-gallery-item" data-image-width="406" data-image-height="285" data-pswp-item-id="9" data-gallery-uid="6">
+              <div class="u-back-slide" data-image-width="406" data-image-height="285">
+                <img class="u-back-image u-expanded" src="./index_files/oraple_laplacian4.jpg">
+              </div>
+              <div class="u-over-slide u-shading u-over-slide-20">
+                <h3 class="u-gallery-heading"></h3>
+                <p class="u-gallery-text"></p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <p class="u-text u-text-4">Above: Gaussian and Laplacian stacks for <span style="font-style: italic;">oraple.jpg<span style="font-style: normal;">&nbsp;(downloaded from class site).</span>
+          </span>&nbsp;The top row is the Gaussian stack, and the bottom is the Laplacian stack. I process each RGB channel separately, so the color images are created by combining the 3 channels for each level.
+        </p>
+      </div>
+    </section>
+    <section class="u-clearfix u-section-11" id="sec-7e38">
+      <div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
+        <h2 class="u-text u-text-default u-text-1">Multiresolution Blending</h2>
+        <p class="u-text u-text-default u-text-2">In order to perform multiresolution blending, we first create a mask to select a part of one image, and a different part of the other image. For the oraple, we can use a very simple mask with the left half of the apple and the right half of the orange selected.</p>
+        <div class="u-expanded-width u-gallery u-layout-grid u-lightbox u-show-text-always u-gallery-1" data-pswp-uid="7">
+          <div class="u-gallery-inner u-gallery-inner-1">
+            <div class="u-border-1 u-border-grey-75 u-gallery-item" data-pswp-item-id="0" data-gallery-uid="7">
+              <div class="u-back-slide" data-image-width="300" data-image-height="300">
+                <img class="u-back-image u-expanded" src="./index_files/apple.jpeg" alt="apple">
+              </div>
+              <div class="u-align-right u-over-slide u-over-slide-1">
+                <h3 class="u-gallery-heading u-text-body-alt-color" style="margin-right: 0px; margin-left: auto;">apple</h3>
+                <p class="u-gallery-text" style="margin-right: 0px; margin-left: auto;"></p>
+              </div>
+            </div>
+            <div class="u-border-1 u-border-grey-75 u-gallery-item" data-pswp-item-id="1" data-gallery-uid="7">
+              <div class="u-back-slide" data-image-width="300" data-image-height="300">
+                <img class="u-back-image u-expanded" src="./index_files/oraple_mask.jpg" alt="mask">
+              </div>
+              <div class="u-align-right u-over-slide u-over-slide-2">
+                <h3 class="u-gallery-heading u-text-body-alt-color" style="margin-right: 0px; margin-left: auto;">mask</h3>
+                <p class="u-gallery-text" style="margin-right: 0px; margin-left: auto;"></p>
+              </div>
+            </div>
+            <div class="u-border-1 u-border-grey-75 u-gallery-item" data-pswp-item-id="2" data-gallery-uid="7">
+              <div class="u-back-slide" data-image-width="406" data-image-height="285">
+                <img class="u-back-image u-expanded" src="./index_files/oraple-67.jpg" alt="orange">
+              </div>
+              <div class="u-align-right u-over-slide u-over-slide-3">
+                <h3 class="u-gallery-heading u-text-body-alt-color" style="margin-right: 0px; margin-left: auto;">orange</h3>
+                <p class="u-gallery-text" style="margin-right: 0px; margin-left: auto;"></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="u-clearfix u-section-12" id="sec-3680">
+      <div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
+        <p class="u-text u-text-default u-text-1">Then, we create a gaussian stack with the mask with the same length as the image stacks. For each level of the blending process starting at the blurriest level, we will apply a mask to the first image, and 1-mask to the second image. Then, we can sum <span style="font-style: italic;">all </span>of the images together (both stacks and every level) for the final blended image.
+        </p>
+        <div class="u-gallery u-layout-grid u-lightbox u-show-text-always u-gallery-1" data-pswp-uid="8">
+          <div class="u-gallery-inner u-gallery-inner-1">
+            <div class="u-gallery-item" data-image-width="300" data-image-height="300" data-pswp-item-id="0" data-gallery-uid="8">
+              <div class="u-back-slide" data-image-width="300" data-image-height="300">
+                <img class="u-back-image u-expanded" src="./index_files/img1_0.jpg" alt="(apple)">
+              </div>
+              <div class="u-over-slide u-over-slide-1">
+                <p class="u-align-right u-gallery-heading u-text-body-alt-color" style="font-size: 1.25rem;">(apple)</p>
+                <p class="u-gallery-text u-text-body-alt-color" style="font-size: 1.25rem;">level 1</p>
+              </div>
+            </div>
+            <div class="u-gallery-item" data-image-width="300" data-image-height="300" data-pswp-item-id="1" data-gallery-uid="8">
+              <div class="u-back-slide" data-image-width="300" data-image-height="300">
+                <img class="u-back-image u-expanded" src="./index_files/mask0.jpg" alt="(mask)">
+              </div>
+              <div class="u-over-slide u-over-slide-2">
+                <p class="u-align-right u-gallery-heading u-text-body-alt-color" style="font-size: 1.25rem;">(mask)</p>
+                <p class="u-gallery-text u-text-body-alt-color" style="font-size: 1.25rem;"></p>
+              </div>
+            </div>
+            <div class="u-gallery-item" data-image-width="300" data-image-height="300" data-pswp-item-id="2" data-gallery-uid="8">
+              <div class="u-back-slide" data-image-width="300" data-image-height="300">
+                <img class="u-back-image u-expanded" src="./index_files/img2_0.jpg" alt="(orange)">
+              </div>
+              <div class="u-over-slide u-over-slide-3">
+                <p class="u-align-right u-gallery-heading u-text-body-alt-color" style="font-size: 1.25rem;">(orange)</p>
+                <p class="u-gallery-text u-text-body-alt-color" style="font-size: 1.25rem;"></p>
+              </div>
+            </div>
+            <div class="u-gallery-item" data-image-width="300" data-image-height="300" data-pswp-item-id="3" data-gallery-uid="8">
+              <div class="u-back-slide" data-image-width="300" data-image-height="300">
+                <img class="u-back-image u-expanded" src="./index_files/combo_0.jpg" alt="(apple + orange)">
+              </div>
+              <div class="u-over-slide u-over-slide-4">
+                <p class="u-align-right u-gallery-heading u-text-body-alt-color" style="font-size: 1.25rem;">(apple + orange)</p>
+                <p class="u-gallery-text u-text-body-alt-color" style="font-size: 1.25rem;"></p>
+              </div>
+            </div>
+            <div class="u-gallery-item" data-image-width="300" data-image-height="300" data-pswp-item-id="4" data-gallery-uid="8">
+              <div class="u-back-slide" data-image-width="300" data-image-height="300">
+                <img class="u-back-image u-expanded" src="./index_files/img1_1.jpg">
+              </div>
+              <div class="u-over-slide u-over-slide-5">
+                <p class="u-align-right u-gallery-heading u-text-body-alt-color" style="font-size: 1.25rem;"></p>
+                <p class="u-gallery-text u-text-body-alt-color" style="font-size: 1.25rem;">level 2</p>
+              </div>
+            </div>
+            <div class="u-gallery-item" data-image-width="300" data-image-height="300" data-pswp-item-id="5" data-gallery-uid="8">
+              <div class="u-back-slide" data-image-width="300" data-image-height="300">
+                <img class="u-back-image u-expanded" src="./index_files/mask1.jpg">
+              </div>
+              <div class="u-over-slide u-over-slide-6">
+                <p class="u-align-right u-gallery-heading u-text-body-alt-color" style="font-size: 1.25rem;"></p>
+                <p class="u-gallery-text u-text-body-alt-color" style="font-size: 1.25rem;"></p>
+              </div>
+            </div>
+            <div class="u-gallery-item" data-image-width="300" data-image-height="300" data-pswp-item-id="6" data-gallery-uid="8">
+              <div class="u-back-slide" data-image-width="300" data-image-height="300">
+                <img class="u-back-image u-expanded" src="./index_files/img2_1.jpg">
+              </div>
+              <div class="u-over-slide u-over-slide-7">
+                <p class="u-align-right u-gallery-heading u-text-body-alt-color" style="font-size: 1.25rem;"></p>
+                <p class="u-gallery-text u-text-body-alt-color" style="font-size: 1.25rem;"></p>
+              </div>
+            </div>
+            <div class="u-gallery-item" data-image-width="300" data-image-height="300" data-pswp-item-id="7" data-gallery-uid="8">
+              <div class="u-back-slide" data-image-width="300" data-image-height="300">
+                <img class="u-back-image u-expanded" src="./index_files/combo_1.jpg">
+              </div>
+              <div class="u-over-slide u-over-slide-8">
+                <p class="u-align-right u-gallery-heading u-text-body-alt-color" style="font-size: 1.25rem;"></p>
+                <p class="u-gallery-text u-text-body-alt-color" style="font-size: 1.25rem;"></p>
+              </div>
+            </div>
+            <div class="u-gallery-item" data-image-width="300" data-image-height="300" data-pswp-item-id="8" data-gallery-uid="8">
+              <div class="u-back-slide" data-image-width="300" data-image-height="300">
+                <img class="u-back-image u-expanded" src="./index_files/img1_2.jpg" alt="">
+              </div>
+              <div class="u-over-slide u-over-slide-9">
+                <p class="u-align-right u-gallery-heading u-text-body-alt-color" style="font-size: 1.25rem;"></p>
+                <p class="u-gallery-text u-text-body-alt-color" style="font-size: 1.25rem;">level 3</p>
+              </div>
+            </div>
+            <div class="u-gallery-item" data-image-width="300" data-image-height="300" data-pswp-item-id="9" data-gallery-uid="8">
+              <div class="u-back-slide" data-image-width="300" data-image-height="300">
+                <img class="u-back-image u-expanded" src="./index_files/mask2.jpg">
+              </div>
+              <div class="u-over-slide u-over-slide-10">
+                <p class="u-align-right u-gallery-heading u-text-body-alt-color" style="font-size: 1.25rem;"></p>
+                <p class="u-gallery-text u-text-body-alt-color" style="font-size: 1.25rem;"></p>
+              </div>
+            </div>
+            <div class="u-gallery-item" data-image-width="300" data-image-height="300" data-pswp-item-id="10" data-gallery-uid="8">
+              <div class="u-back-slide" data-image-width="300" data-image-height="300">
+                <img class="u-back-image u-expanded" src="./index_files/img2_2.jpg">
+              </div>
+              <div class="u-over-slide u-over-slide-11">
+                <p class="u-align-right u-gallery-heading u-text-body-alt-color" style="font-size: 1.25rem;"></p>
+                <p class="u-gallery-text u-text-body-alt-color" style="font-size: 1.25rem;"></p>
+              </div>
+            </div>
+            <div class="u-gallery-item" data-image-width="300" data-image-height="300" data-pswp-item-id="11" data-gallery-uid="8">
+              <div class="u-back-slide" data-image-width="300" data-image-height="300">
+                <img class="u-back-image u-expanded" src="./index_files/combo_2.jpg">
+              </div>
+              <div class="u-over-slide u-over-slide-12">
+                <p class="u-align-right u-gallery-heading u-text-body-alt-color" style="font-size: 1.25rem;"></p>
+                <p class="u-gallery-text u-text-body-alt-color" style="font-size: 1.25rem;"></p>
+              </div>
+            </div>
+            <div class="u-gallery-item" data-image-width="300" data-image-height="300" data-pswp-item-id="12" data-gallery-uid="8">
+              <div class="u-back-slide" data-image-width="300" data-image-height="300">
+                <img class="u-back-image u-expanded" src="./index_files/img1_3.jpg">
+              </div>
+              <div class="u-over-slide u-over-slide-13">
+                <p class="u-align-right u-gallery-heading u-text-body-alt-color" style="font-size: 1.25rem;"></p>
+                <p class="u-gallery-text u-text-body-alt-color" style="font-size: 1.25rem;">level 4</p>
+              </div>
+            </div>
+            <div class="u-gallery-item" data-image-width="300" data-image-height="300" data-pswp-item-id="13" data-gallery-uid="8">
+              <div class="u-back-slide" data-image-width="300" data-image-height="300">
+                <img class="u-back-image u-expanded" src="./index_files/mask3.jpg">
+              </div>
+              <div class="u-over-slide u-over-slide-14">
+                <p class="u-align-right u-gallery-heading u-text-body-alt-color" style="font-size: 1.25rem;"></p>
+                <p class="u-gallery-text u-text-body-alt-color" style="font-size: 1.25rem;"></p>
+              </div>
+            </div>
+            <div class="u-gallery-item" data-image-width="300" data-image-height="300" data-pswp-item-id="14" data-gallery-uid="8">
+              <div class="u-back-slide" data-image-width="300" data-image-height="300">
+                <img class="u-back-image u-expanded" src="./index_files/img2_3.jpg">
+              </div>
+              <div class="u-over-slide u-over-slide-15">
+                <p class="u-align-right u-gallery-heading u-text-body-alt-color" style="font-size: 1.25rem;"></p>
+                <p class="u-gallery-text u-text-body-alt-color" style="font-size: 1.25rem;"></p>
+              </div>
+            </div>
+            <div class="u-gallery-item" data-image-width="300" data-image-height="300" data-pswp-item-id="15" data-gallery-uid="8">
+              <div class="u-back-slide" data-image-width="300" data-image-height="300">
+                <img class="u-back-image u-expanded" src="./index_files/combo_3.jpg">
+              </div>
+              <div class="u-over-slide u-over-slide-16">
+                <p class="u-align-right u-gallery-heading u-text-body-alt-color" style="font-size: 1.25rem;"></p>
+                <p class="u-gallery-text u-text-body-alt-color" style="font-size: 1.25rem;"></p>
+              </div>
+            </div>
+            <div class="u-gallery-item" data-image-width="300" data-image-height="300" data-pswp-item-id="16" data-gallery-uid="8">
+              <div class="u-back-slide" data-image-width="300" data-image-height="300">
+                <img class="u-back-image u-expanded" src="./index_files/img1_combo.jpg" alt="">
+              </div>
+              <div class="u-over-slide u-over-slide-17">
+                <p class="u-align-right u-gallery-heading u-text-body-alt-color" style="font-size: 1.25rem;"></p>
+                <p class="u-gallery-text u-text-body-alt-color" style="font-size: 1.25rem;">sum(apple_levels)</p>
+              </div>
+            </div>
+            <div class="u-gallery-item" data-image-width="300" data-image-height="300" data-pswp-item-id="17" data-gallery-uid="8">
+              <div class="u-back-slide" data-image-width="300" data-image-height="300">
+                <img class="u-back-image u-expanded" src="./index_files/oraple_mask.jpg">
+              </div>
+              <div class="u-over-slide u-over-slide-18">
+                <p class="u-align-right u-gallery-heading u-text-body-alt-color" style="font-size: 1.25rem;"></p>
+                <p class="u-gallery-text u-text-body-alt-color" style="font-size: 1.25rem;"></p>
+              </div>
+            </div>
+            <div class="u-gallery-item" data-image-width="300" data-image-height="300" data-pswp-item-id="18" data-gallery-uid="8">
+              <div class="u-back-slide" data-image-width="300" data-image-height="300">
+                <img class="u-back-image u-expanded" src="./index_files/img2_combo.jpg">
+              </div>
+              <div class="u-over-slide u-over-slide-19">
+                <p class="u-align-right u-gallery-heading u-text-body-alt-color" style="font-size: 1.25rem;"></p>
+                <p class="u-gallery-text u-text-body-alt-color" style="font-size: 1.25rem;">sum(orange_levels)</p>
+              </div>
+            </div>
+            <div class="u-gallery-item" data-image-width="300" data-image-height="300" data-pswp-item-id="19" data-gallery-uid="8">
+              <div class="u-back-slide" data-image-width="300" data-image-height="300">
+                <img class="u-back-image u-expanded" src="./index_files/oraple0.jpg">
+              </div>
+              <div class="u-over-slide u-over-slide-20">
+                <p class="u-align-right u-gallery-heading u-text-body-alt-color" style="font-size: 1.25rem;"></p>
+                <p class="u-gallery-text u-text-body-alt-color" style="font-size: 1.25rem;">sum(all)</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <p class="u-text u-text-2">Above: Laplacians of multiresolution blending with 4 levels, performed on the R channel of the oraple. Laplacian images are min-max normalized to increase visibility.</p>
+      </div>
+    </section>
+    <section class="u-clearfix u-section-13" id="sec-c9b5">
+      <div class="u-clearfix u-sheet u-sheet-1">
+        <p class="u-text u-text-default u-text-1">I repeated the multiresolution blending process for each of the RGB channels, then combined the final result into a color image.&nbsp;</p>
+        <div class="u-expanded-width u-gallery u-layout-grid u-lightbox u-show-text-always u-gallery-1" data-pswp-uid="9">
+          <div class="u-gallery-inner u-gallery-inner-1">
+            <div class="u-gallery-item" data-pswp-item-id="0" data-gallery-uid="9">
+              <div class="u-back-slide" data-image-width="300" data-image-height="300">
+                <img class="u-back-image u-expanded" src="./index_files/oraple0.jpg" alt="R">
+              </div>
+              <div class="u-over-slide u-over-slide-1">
+                <h3 class="u-gallery-heading u-text-body-alt-color">R</h3>
+                <p class="u-gallery-text"></p>
+              </div>
+            </div>
+            <div class="u-gallery-item" data-pswp-item-id="1" data-gallery-uid="9">
+              <div class="u-back-slide" data-image-width="300" data-image-height="300">
+                <img class="u-back-image u-expanded" src="./index_files/oraple1.jpg" alt="G">
+              </div>
+              <div class="u-over-slide u-over-slide-2">
+                <h3 class="u-gallery-heading u-text-body-alt-color">G</h3>
+                <p class="u-gallery-text"></p>
+              </div>
+            </div>
+            <div class="u-gallery-item" data-pswp-item-id="2" data-gallery-uid="9">
+              <div class="u-back-slide" data-image-width="300" data-image-height="300">
+                <img class="u-back-image u-expanded" src="./index_files/oraple2.jpg" alt="B">
+              </div>
+              <div class="u-over-slide u-over-slide-3">
+                <h3 class="u-gallery-heading u-text-body-alt-color">B</h3>
+                <p class="u-gallery-text"></p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <img class="u-image u-image-default u-preserve-proportions u-image-1" src="./index_files/oraple-89.jpg" alt="" data-image-width="300" data-image-height="300">
+      </div>
+    </section>
+    <section class="u-clearfix u-section-14" id="sec-3597">
+      <div class="u-clearfix u-sheet u-sheet-1">
+        <h2 class="u-text u-text-default u-text-1">More hybrid images!</h2>
+        <div class="u-expanded-width u-gallery u-layout-grid u-lightbox u-show-text-none u-gallery-1" data-pswp-uid="10">
+          <div class="u-gallery-inner u-gallery-inner-1">
+            <div class="u-effect-hover-zoom u-gallery-item" data-pswp-item-id="0" data-gallery-uid="10">
+              <div class="u-back-slide" data-image-width="500" data-image-height="213">
+                <img class="u-back-image u-expanded" src="./index_files/kfp.jpg">
+              </div>
+              <div class="u-over-slide u-shading u-over-slide-1">
+                <h3 class="u-gallery-heading"></h3>
+                <p class="u-gallery-text"></p>
+              </div>
+            </div>
+            <div class="u-effect-hover-zoom u-gallery-item" data-pswp-item-id="1" data-gallery-uid="10">
+              <div class="u-back-slide" data-image-width="1366" data-image-height="768">
+                <img class="u-back-image u-expanded" src="./index_files/walle.jpg">
+              </div>
+              <div class="u-over-slide u-shading u-over-slide-2">
+                <h3 class="u-gallery-heading"></h3>
+                <p class="u-gallery-text"></p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <img class="u-image u-image-default u-image-1" src="./index_files/walle-92.jpg" alt="" data-image-width="500" data-image-height="213">
+        <p class="u-text u-text-2">This didn't work out so well because I had to downsize Wall-E a lot so that he wasn't a giant - but that made him look very pixelated. In addition, the background of the Wall-E image is very different than the background of the Kung Fu Panda image, so it looks like there's a glow around Wall-E. It seems pretty important that the background of the images match in color intensity, otherwise we end up blending colors in a weird way.</p>
+        <div class="u-expanded-width u-gallery u-layout-grid u-lightbox u-show-text-none u-gallery-2" data-pswp-uid="11">
+          <div class="u-gallery-inner u-gallery-inner-2">
+            <div class="u-gallery-item" data-pswp-item-id="0" data-gallery-uid="11">
+              <div class="u-back-slide" data-image-width="1160" data-image-height="600">
+                <img class="u-back-image u-expanded" src="./index_files/shark.jpg">
+              </div>
+              <div class="u-over-slide u-shading u-over-slide-3">
+                <h3 class="u-gallery-heading"></h3>
+                <p class="u-gallery-text"></p>
+              </div>
+            </div>
+            <div class="u-gallery-item" data-pswp-item-id="1" data-gallery-uid="11">
+              <div class="u-back-slide" data-image-width="1160" data-image-height="600">
+                <img class="u-back-image u-expanded" src="./index_files/shark_mask.jpg">
+              </div>
+              <div class="u-over-slide u-shading u-over-slide-4">
+                <h3 class="u-gallery-heading"></h3>
+                <p class="u-gallery-text"></p>
+              </div>
+            </div>
+            <div class="u-gallery-item" data-pswp-item-id="2" data-gallery-uid="11">
+              <div class="u-back-slide" data-image-width="1279" data-image-height="960">
+                <img class="u-back-image u-expanded" src="./index_files/pool.jfif">
+              </div>
+              <div class="u-over-slide u-shading u-over-slide-5">
+                <h3 class="u-gallery-heading"></h3>
+                <p class="u-gallery-text"></p>
+              </div>
+            </div>
+            <div class="u-gallery-item" data-pswp-item-id="3" data-gallery-uid="11">
+              <div class="u-back-slide" data-image-width="1279" data-image-height="960">
+                <img class="u-back-image u-expanded" src="./index_files/shark-95.jpg">
+              </div>
+              <div class="u-over-slide u-shading u-over-slide-6">
+                <h3 class="u-gallery-heading"></h3>
+                <p class="u-gallery-text"></p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <p class="u-text u-text-3">One thing I noticed when working with very high-definition images is that the convolutions start taking a very long time. The larger images require a larger gaussian kernel and they have more pixels to convolve in the first place - suggesting a runtime like O(N^3), which is very slow. It seems that the pyramid method would be more efficient, but since I already implemented stacks, I didn't really want to go back to redo it.</p>
+        <div class="u-expanded-width u-gallery u-layout-grid u-lightbox u-gallery-3" data-pswp-uid="12">
+          <div class="u-gallery-inner u-gallery-inner-3">
+            <div class="u-effect-fade u-gallery-item" data-pswp-item-id="0" data-gallery-uid="12">
+              <div class="u-back-slide" data-image-width="810" data-image-height="1080">
+                <img class="u-back-image u-expanded" src="./index_files/campanile2.jpg">
+              </div>
+              <div class="u-over-slide u-shading u-over-slide-7">
+                <h3 class="u-gallery-heading"></h3>
+                <p class="u-gallery-text"></p>
+              </div>
+            </div>
+            <div class="u-effect-fade u-gallery-item" data-pswp-item-id="1" data-gallery-uid="12">
+              <div class="u-back-slide" data-image-width="720" data-image-height="720">
+                <img class="u-back-image u-expanded u-image-contain" src="./index_files/bloodmoon_mask.jpg" alt="">
+              </div>
+              <div class="u-over-slide u-shading u-over-slide-8">
+                <h3 class="u-gallery-heading"></h3>
+                <p class="u-gallery-text"></p>
+              </div>
+            </div>
+            <div class="u-effect-fade u-gallery-item" data-pswp-item-id="2" data-gallery-uid="12">
+              <div class="u-back-slide" data-image-width="720" data-image-height="720">
+                <img class="u-back-image u-expanded u-image-contain" src="./index_files/bloodmoon.jpg">
+              </div>
+              <div class="u-over-slide u-shading u-over-slide-9">
+                <h3 class="u-gallery-heading"></h3>
+                <p class="u-gallery-text"></p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <img class="u-image u-image-default u-image-2" src="./index_files/bloodmoon-100.jpg" alt="" data-image-width="816" data-image-height="1088">
+        <p class="u-text u-text-4">Unfortunately the black background of the blood moon image gets "leaked" into the blended image. This is undesired but also seems unavoidable with this method, unless we start with two images that have similar backgrounds. The effect is quite interesting though, since the background behind the moon looks somewhat like a shadow special effect (applied to the image itself for comparison).</p>
+      </div>
+    </section>
+<style>.u-disable-duration * {transition-duration: 0s !important;}</style><div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="pswp__bg"></div>
+  <div class="pswp__scroll-wrap">
+    <div class="pswp__container" style="transform: translate3d(0px, 0px, 0px);">
+     <div class="pswp__item" style="display: block; transform: translate3d(-1701px, 0px, 0px);"><div class="pswp__zoom-wrap" style="transform: translate3d(490px, 49px, 0px) scale(0.981884);"><img class="pswp__img" src="./index_files/cameraman_grad_mag.jpg" style="opacity: 1; width: 550px; height: 552px;"></div></div>
+     <div class="pswp__item" style="transform: translate3d(0px, 0px, 0px);"><div class="pswp__zoom-wrap" style="transform: translate3d(764.6px, -177px, 0px) scale(1.02734);"><img class="pswp__img pswp__img--placeholder" src="./index_files/cameraman_edges.jpg" style="width: 550px; height: 552px; display: none;"><img class="pswp__img" src="./index_files/cameraman_edges.jpg" style="display: block; width: 550px; height: 552px;"></div></div>
+      <div class="pswp__item" style="display: block; transform: translate3d(1701px, 0px, 0px);"><div class="pswp__zoom-wrap" style="transform: translate3d(490px, 49px, 0px) scale(0.981884);"><img class="pswp__img" src="./index_files/cameraman_dx.jpg" style="opacity: 1; width: 550px; height: 552px;"></div></div>
+    </div>
+    <div class="pswp__ui pswp__ui--fit pswp__ui--hidden">
+      <div class="pswp__top-bar">
+        <div class="pswp__counter">4 / 4</div>
+        <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+        <button class="pswp__button pswp__button--share" title="Share"></button>
+        <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+        <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+        <div class="pswp__preloader">
+          <div class="pswp__preloader__icn">
+            <div class="pswp__preloader__cut">
+              <div class="pswp__preloader__donut"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+        <div class="pswp__share-tooltip"></div>
+      </div>
+      <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)"></button>
+      <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)"></button>
+      <div class="pswp__previews" data-previews="data-previews" style="display: none"></div>      <div class="pswp__caption">
+        <div class="pswp__caption__center">binarized gradient magnitude<br><small>(threshold 0.26)</small></div>
+      </div>
+    </div>
+  </div>
+</div></body></html>

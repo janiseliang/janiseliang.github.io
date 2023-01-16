@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Photo Mosaics</title>
+    <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet" />
+    <script>
+      function showA() {
+        document.getElementById("part1").style.display = "block";
+        document.getElementById("p1-btn").style.fontWeight = "700";
+        document.getElementById("part2").style.display = "none";
+        document.getElementById("p2-btn").style.fontWeight = "400";
+        document.getElementById("part3").style.display = "none";
+        document.getElementById("p3-btn").style.fontWeight = "400";
+        window.scrollTo(0,0);
+      }
+
+      function showB() {
+        document.getElementById("part1").style.display = "none";
+        document.getElementById("p1-btn").style.fontWeight = "400";
+        document.getElementById("part2").style.display = "block";
+        document.getElementById("p2-btn").style.fontWeight = "700";
+        document.getElementById("part3").style.display = "none";
+        document.getElementById("p3-btn").style.fontWeight = "400";
+        window.scrollTo(0,0);
+      }
+
+      function showC() {
+        document.getElementById("part1").style.display = "none";
+        document.getElementById("p1-btn").style.fontWeight = "400";
+        document.getElementById("part2").style.display = "none";
+        document.getElementById("p2-btn").style.fontWeight = "400";
+        document.getElementById("part3").style.display = "block";
+        document.getElementById("p3-btn").style.fontWeight = "700";
+        window.scrollTo(0,0);
+      }
+    </script>
+  </head>
+  <body>
+    <!-- "Navbar" -->
+    <div class="fixed top-0 left-0 bottom-0 bg-gray-100 w-8">
+      <button id="p1-btn" class="h-24 w-full bg-teal-100 border-teal-300 border border-l-0 rounded-r-lg transform rotate-180 mb-1 focus:outline-none font-bold" onclick="showA()">
+        <span style="writing-mode: vertical-lr; text-orientation: sideways-right;" class="align-middle">Part A</span>
+      </button>
+      <button id="p2-btn" class="h-24 w-full bg-red-100 border-red-300 border border-l-0 rounded-r-lg transform rotate-180 mb-1 focus:outline-none" onclick="showB()">
+        <span style="writing-mode: vertical-lr; text-orientation: sideways-right;" class="align-middle">Part B</span>
+      </button>
+      <button id="p3-btn" class="h-24 w-full bg-blue-100 border-blue-300 border border-l-0 rounded-r-lg transform rotate-180 mb-1 focus:outline-none" onclick="showC()">
+        <span style="writing-mode: vertical-lr; text-orientation: sideways-right;" class="align-middle">Gallery</span>
+      </button>
+    </div>
+
+    <div class="w-full">
+      <div id="title" class="m-8 mx-20">
+        <h1 class="pb-2 text-center text-5xl font-semibold">Project 4: (Auto)Stitching Photo Mosaics</h1>
+        <h4 class="text-center text-2xl font-normal">Janise Liang</h4>
+      </div>
+
+      <div id="part1" class="m-8 mx-20">
+        <h2 class="pb-2 text-left text-4xl font-semibold">Part A: Manual Image Stitching</h2>
+        
+        <div id="sectA1">
+          <h3 class="pl-1 mb-2 font-semibold text-2xl bg-teal-100">Section 1: Calculating the Homography Matrix</h3>
+          <img class="mx-auto my-8 w-3/4" src="images/homography.png" alt="homography-details" />
+        </div>
+
+        <div id="sectA2">
+          <h3 class="pl-1 mb-2 font-semibold text-2xl bg-teal-100">Section 2: Image Rectification</h3>
+          <div class="mb-2">The projective transformation can be applied to image rectification. For this section, I manually selected the 4 corners in the image, then warped it into a manually selected rectangular shape.</div>
+          
+          <!-- Stickers Rectification -->
+          <div class="container my-8 mx-auto grid grid-cols-3 gap-2 w-3/4">
+            <div class="w-3/4">
+              <img src="images/stickers.png" alt="stickers-original" />
+              <div class="mt-2 text-center">Original Image</div>
+            </div>
+            <div class="w-3/4">
+              <img src="images/stickers_outline.png" alt="stickers-annotated" />
+              <div class="mt-2 text-center">Annotation</div>
+            </div>
+            <div class="w-1/2">
+              <img src="images/stickers_rect.png" alt="stickers-rectified" />
+              <div class="mt-2 text-center">Rectified Image</div>
+            </div>
+          </div>
+
+          <div class="container my-8 mx-auto grid grid-cols-3 gap-2 w-3/4">
+            <div class="w-3/4">
+              <img src="images/buildings.jpg" alt="buildings-original" />
+              <div class="mt-2 text-center">Original Image</div>
+            </div>
+            <div class="w-3/4">
+              <img src="images/buildings_outline.png" alt="buildings-annotated" />
+              <div class="mt-2 text-center">Annotation</div>
+            </div>
+            <div class="w-5/6">
+              <img src="images/buildings_rect.png" alt="buildings-rectified" />
+              <div class="mt-2 text-center">Rectified Image</div>
+            </div>
+          </div>
+        </div>
+
+        <div id="sectA3">
+          <h3 class="pl-1 mb-2 font-semibold text-2xl bg-teal-100">Section 3: Panorama Stitching</h3>
+          <div class="mb-2">In order to stitch two images together into a panorama, we first select point correspondences between the left and right images. I chose to warp the right-hand image points into the shape of the left image. Then, to merge the images together, I used code from project 2 to perform a multi-resolution blend of the two images.</div>
+
+          <div class="container my-8 mx-auto grid grid-cols-3 gap-2 w-3/4">
+            <div class="w-3/4">
+              <img src="images/oatmeal_left.png" alt="oatmeal-left" />
+              <div class="mt-2 text-center">Left Image (annotated)</div>
+            </div>
+            <div class="w-3/4">
+              <img src="images/oatmeal_right.png" alt="oatmeal-right" />
+              <div class="mt-2 text-center">Right Image (annotated)</div>
+            </div>
+            <div class="w-full">
+              <img src="images/oatmeal_blend.png" alt="oatmeal-blend" />
+              <div class="mt-2 text-center">Warped and Blended</div>
+            </div>
+          </div>
+
+          <div class="mb-2">I also tried a color gradient (just a mask over the overlapping area, increasing linearly from 0 to 1) to blend the images. I observed that the color gradient performs relatively well for the foreground of the image, but there is still a noticeable artifact in the top left part of the stitch. The multi-resolution blend is significantly slower than the other alternatives, but produces a much better output.</div>
+          <div class="container my-8 mx-auto grid grid-cols-3 gap-2">
+            <div class="w-full">
+              <img src="images/oatmeal_noblend.png" alt="oatmeal-noblend" />
+              <div class="mt-2 text-center">No Blending (simple average for overlapping areas)</div>
+            </div>
+            <div class="w-full">
+              <img src="images/oatmeal_grad.jpg" alt="oatmeal-grad" />
+              <div class="mt-2 text-center">Color Gradient Blend</div>
+            </div>
+            <div class="w-full">
+              <img src="images/oatmeal_blend.png" alt="oatmeal-hybrid" />
+              <div class="mt-2 text-center">Multi-Resolution Blended</div>
+            </div>
+          </div>
+
+
+          <div class="mt-8 font-semibold mb-2">- fried rice -</div>
+          <div class="mb-4">I also attempted to blend more than 2 images together into a panorama. Since multi-resolution blending takes so long, I used gradient blending instead. Luckily, there doesn't seem to be much of a diffeerence between the two in this example.</div>
+          <div class="flex flex-row mb-2 w-full">
+            <img class="h-64 mr-2" src="images/friedrice1.jpg" alt="" />
+            <img class="h-64 mx-2" src="images/friedrice-12.jpg" alt="" />
+            <img class="h-64 ml-2" src="images/friedrice-123.jpg" alt="" />
+          </div>
+          <img class="h-64 my-4" src="images/friedrice-1234.jpg" alt="" />
+          <div class="mb-2 italic">Since the image subject is so close to the camera, there is a bit of a parallax effect in the background. I was unable to remove this, but since the background is somewhat blurry anyways, I figured that it wasn't too significant. More importantly, the foreground of the image seems very well-blended, and the first 3 images don't seem to have noticable artifacts.</div>
+
+          <div class="mt-8 font-semibold mb-2">- amalfi coast, italy -</div>
+          <div class="">The images below were taken with different camera exposures settings, so the two sides are slightly different colors. Using the gradient mask leaves some artifacts on the image, so I tried to use multi-resolution blending instead, which smoothed out most of the inconsistencies.</div>
+          <div class="container my-8 mx-auto grid grid-cols-2 gap-2">
+            <div class="w-3/4 mx-auto">
+              <img src="images/italy_left.png" alt="" />
+              <div class="mt-2 text-center">Left Image</div>
+            </div>
+            <div class="w-3/4 mx-auto">
+              <img src="images/italy_right.png" alt="" />
+              <div class="mt-2 text-center">Right Image</div>
+            </div>
+          </div>
+
+          <img class="w-3/4 mx-auto" src="images/italy_blend.jpg" />
+          <div class="mt-2 italic">The blending worked very well, and we can basely see a trace of the stitch. However, due to the slight difference in camera orientation and perspective in the two images, we end up stretching the right image a lot, which leaves a lot of empty space on the bottom left. I tried warping both into a middle-image, but since the left-hand side of the image is closer to the camera, the current method looks more realistic.</div>
+        </div>
+
+        <div id="reflectionA" class="mt-8">
+          <h3 class="pl-1 mb-2 font-semibold text-2xl bg-teal-100">Reflection</h3>
+          <div class="mb-2">The most significant thing that I notices in this project was that the accuracy of the point selection is very important. Being off by even 5 pixels causes the homogoraphy to be much less accurate in areas further away from the selection. As a result, I either have to pick very accruate points, or pick a lot of somewhat-accurate points. This was a bit annoying, so I am very excited to have the computer doing all the work for me in the next part of the project!</div>
+          <div class="mb-2">(Part B is in the tab to the left, or click <a class="text-blue-600 underline cursor-pointer hover:text-blue-800" onclick="showB()">here</a>)</div>
+        </div>
+      </div>
+
+      <div id="part2" class="m-8 mx-20 hidden">
+        <h2 class="pb-2 text-left text-4xl font-semibold">Part B: Auto-Stitching</h2>
+        
+        <div id="sectB1">
+          <h3 class="pl-1 mb-2 font-semibold text-2xl bg-red-200">Section 1: Feature Detection, Extraction, and Matching</h3>
+          <div class="mb-4">In this section, we implement a simplified version of the algorithm described in
+            <a href="https://inst.eecs.berkeley.edu/~cs194-26/fa22/hw/proj4/Papers/MOPS.pdf" class="text-blue-600 underline hover:text-blue-800">"Multi-Image Matching using Multi-Scale Oriented Patches" by Brown et al.</a></div>  
+          <div class="mb-2">First, I used the provided Harris iterest point detection code to identify points on each image. Then, we use the Adaptive non-maximal suppression (ANMS) algorithm to find a more spread-out net of points, which increases the likelihood of points overlapping between the images we are stitching. We note that the Harris points are very clustered in the bottom half of the image, but the ANMS points include many points in the mountains at the top of the image.</div>
+          <div class="container my-8 mx-auto grid grid-cols-2 gap-2">
+            <div class="">
+              <img src="images/italy_strongest.png" alt="harris_pts" />
+              <div class="mt-2 text-center font-semibold">Harris strongest 500</div>
+            </div>
+            <div class="">
+              <img src="images/italy_anms.png" alt="italy_anms" />
+              <div class="mt-2 text-center font-semibold">ANMS top 500</div>
+            </div>
+          </div>
+
+          <div class="mb-2">Then, to extract features, we sample a width-40 square around each Harris point, then downsample to an 8-by-8 square and bias-gain normalize each feature individually. Then, I train a kd-tree on each 64-dimension feature of the 2nd image, using the L2 distance between each feature as the distance metric. For each feature in the 1st image, we query the tree to find the 2 nearest neighbors (NN1 and NN2). If the ratio of distance between NN1 and NN2 is above a certain threshold, then we have found a match.</div>
+          <img class="w-3/4 mx-auto my-8" src="images/italy_autopairs.png" alt="italy_autopairs"/>
+          
+          <div class="mb-2">The image above is the result of the matching algorithm. We can see that a lot of the pairs seem to be accurate, but there are several outliers which we would not want to use to compute the homography.</div>
+        </div>
+
+        <div id="sectB2" class="mt-4">
+          <h3 class="pl-1 mb-2 font-semibold text-2xl bg-red-200">Section 2: RANdom SAmple Consensus (RANSAC) Homography</h3>
+          <div class="mb-2">The RANSAC algorithm assumes that outliers are placed randomly - so if many points agree on one homography, it is probably correct. We use a 4-point RANSAC algorithm to repeatedly compute homographies, and select the homography that agrees with the most pairs of points ("inliers"), which allows us to disregard the outliers. Using a very low threshold for "agreement" (~1.5 pixels) discards a few near-inliers as well, but we still have more than enough points for a homography.</div>
+          <img class="w-3/4 mx-auto my-8" src="images/italy_ransac.png" alt="italy_inliers"/>
+        </div>
+
+        <div id="sectB3" class="mt-4">
+          <h3 class="pl-1 mb-2 font-semibold text-2xl bg-red-200">Section 2: Reflection</h3>
+          <div class="mb-2">This part of the project was very cool, and it definitely confirmed that having computers to do the point selection is much better than doing it manually! I didn't realize how accurate the Harris point detector would be - I don't think I could have selected points this accurately even given a whole day to do it. Even with only color gradient blending (I didn't want to wait for the slow multi-resolution blending), the images show virtually no seams at all. I also really enjoyed learning about and attempting to implement more efficient methods for doing the required calculations. Now I'm very excited to work on the next project, assuming that there will be very little manual work required.</div>
+          <div class="mb-2">(Final stitching results are in the gallery tab on the left, or click <a class="text-blue-600 underline cursor-pointer hover:text-blue-800" onclick="showC()">here</a>)</div>
+        </div>
+
+      </div>
+
+      <div id="part3" class="m-8 mx-20 hidden">
+        <h2 class="pb-2 text-left text-4xl font-semibold">Manual vs. Automatic Stitching</h2>
+
+        <h3 class="pl-1 mb-2 font-semibold text-2xl bg-blue-200 text-center">- amalfi coast, italy -</h3>
+        <div class="container my-8 mx-auto grid grid-cols-1 gap-2 w-3/4">
+          <div class="">
+            <img src="images/italy_blend.jpg" alt="italy_manual" />
+            <div class="mt-2 text-center mb-4">Manual stitch (compressed due to size limit)</div>
+          </div>
+          <div class="">
+            <img src="images/italy_autostitch.png" alt="italy_auto" />
+            <div class="mt-2 text-center">Automatic stitch (compressed due to size limit)</div>
+          </div>
+        </div>
+
+        <h3 class="pl-1 mb-2 font-semibold text-2xl bg-blue-200 text-center">- oatmeal -</h3>
+        <div class="container my-8 mx-auto grid grid-cols-2 gap-2 w-3/4">
+          <div class="">
+            <img src="images/oatmeal_grad.jpg" alt="oatmeal_manual" />
+            <div class="mt-2 text-center">Manual stitch</div>
+          </div>
+          <div class="">
+            <img src="images/oatmeal_autostitch.png" alt="oatmeal_auto" />
+            <div class="mt-2 text-center">Automatic stitch</div>
+          </div>
+        </div>
+
+        <h3 class="pl-1 mb-2 font-semibold text-2xl bg-blue-200 text-center">- a roof, berkeley -</h3>
+        <div class="container my-8 mx-auto grid grid-cols-2 gap-2 w-3/4">
+          <div class="mx-auto">
+            <img src="images/berk2.jpg" alt="berkeley_left" />
+            <div class="mt-2 text-center">Left Image</div>
+          </div>
+          <div class="mx-auto">
+            <img src="images/berk3.jpg" alt="berkeley_right" />
+            <div class="mt-2 text-center">Right Image</div>
+          </div>
+        </div>
+
+        <img class="container w-2/3 mx-auto" src="images/berk23.jpg" alt="berkeley_roof" />
+        <div class="mt-2 text-center">Automatic stitch</div>
+      </div>
+    </div>
+  </body>
+</html>

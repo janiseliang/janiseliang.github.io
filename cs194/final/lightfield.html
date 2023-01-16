@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Photo Mosaics</title>
+    <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet" />
+    <script>
+      // code for operating sliders
+      function refocus(id) {
+          let slider = document.getElementById(id);
+          let selected = document.getElementById(`${id}${slider.value}`)
+          
+          // hide all except for selected
+          var imgs = document.getElementsByClassName(id + "Img")
+          for (var i = 0; i < imgs.length; i++) {
+            imgs[i].style.display = "none"
+          }
+          if (selected) selected.style.display = "block";
+        }
+    </script>
+
+    <style>
+      .slidecontainer {
+        width: 100%;
+      }
+
+      .slider {
+        -webkit-appearance: none;
+        transform: rotate(270deg);
+        margin-top: 15vh;
+        margin-bottom: 15vh;
+        width: 30vh;
+        height: 15px;
+        border-radius: 5px;
+        background: #d3d3d3;
+        outline: none;
+        opacity: 0.7;
+        -webkit-transition: .2s;
+        transition: opacity .2s;
+      }
+      
+      .slider:hover {
+        opacity: 1;
+      }
+      
+      .slider::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
+        background: #feb2b2;
+        cursor: pointer;
+      }
+      
+      .slider::-moz-range-thumb {
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
+        background: #feb2b2;
+        cursor: pointer;
+      }
+
+      @media (max-width: 1024px){
+        .slider {
+          transform: rotate(180deg);
+          display: inline-block;
+          margin: 10px;
+          width: 80%;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="w-full">
+      <div id="part2" class="m-8 mx-20">
+        <h2 class="pb-2 text-left text-4xl font-semibold">Lightfield Camera</h2>
+        <div id="sectB1" class="mb-8">
+          <h3 class="pl-1 mb-2 font-semibold text-2xl bg-red-100">Depth Refocusing</h3>
+          
+          <div class="mb-2">
+            The <a class="text-blue-600 underline hover:text-blue-800" href="http://lightfield.stanford.edu/lfs.html">input datasets</a> each consist of a single image photographed
+            at each point of a 17 x 17 grid (for a total of 289 images). Due to the parallax effect, objects further away move less between the different camera angles. As a result,
+            taking the average of all the images creates a blurry foreground and a clearer background, simulating a far-away focus depth.
+          </div>
+
+          <div class="mb-2">
+            Alternatively, we can simulate different focal depths by shifting each image by some factor multiplied by the grid coordinates. I denote these factors as
+            <span class="font-semibold">Cy</span> and <span class="font-semibold">Cx</span> for the vertical and horizontal directions, respectively. If the camera coordinates for a given
+            image is <span class="font-semibold">(x, y)</span>, then we shift the image by <span class="font-semibold">(Cx * x, Cy * y)</span> before adding it to the running average.
+          </div>
+
+          <div class="mb-2">
+            Note: The dataset uses a coordinate system with (0, 0) as the lower-right camera position. In order to reduce the off-centeredness of the averaged images,
+            I redefine the origin to be the point (8, 8), so the x and y offsets now range from -8 to 8.
+          </div>
+
+          <div class="mx-auto w-full my-8 lg:flex lg:flex-row lg:w-2/3" id="refocus-chess">
+            <div class="flex-grow">
+              <div id="chessDepth8" class="chessDepthImg mx-auto w-full hidden">
+                <img src="images/chess_0.4_-0.4.jpg"/>
+                <div class="font-semibold mt-2 text-center">Cy = 0.4, Cx = -0.4</div>
+              </div>
+              <div id="chessDepth7" class="chessDepthImg mx-auto w-full">
+                <img src="images/chess_0_0.jpg"/>
+                <div class="font-semibold mt-2 text-center">Cy = 0, Cx = 0</div>
+              </div>
+              <div id="chessDepth6" class="chessDepthImg mx-auto w-full hidden">
+                <img src="images/chess_-0.2_0.2.jpg"/>
+                <div class="font-semibold mt-2 text-center">Cy = -0.2, Cx = 0.2</div>
+              </div>
+              <div id="chessDepth5" class="chessDepthImg mx-auto w-full hidden">
+                <img src="images/chess_-0.6_0.6.jpg"/>
+                <div class="font-semibold mt-2 text-center">Cy = -0.6, Cx = 0.6</div>
+              </div>
+              <div id="chessDepth4" class="chessDepthImg mx-auto w-full hidden">
+                <img src="images/chess_-1.0_1.0.jpg"/>
+                <div class="font-semibold mt-2 text-center">Cy = -1, Cx = 1</div>
+              </div>
+              <div id="chessDepth3" class="chessDepthImg mx-auto w-full hidden">
+                <img src="images/chess_-1.5_1.5.jpg"/>
+                <div class="font-semibold mt-2 text-center">Cy = -1.5, Cx = 1.5</div>
+              </div>
+              <div id="chessDepth2" class="chessDepthImg mx-auto w-full hidden">
+                <img src="images/chess_-2.0_2.0.jpg"/>
+                <div class="font-semibold mt-2 text-center">Cy = -2, Cx = 2</div>
+              </div>
+              <div id="chessDepth1" class="chessDepthImg mx-auto w-full hidden">
+                <img src="images/chess_-2.8_2.8.jpg"/>
+                <div class="font-semibold mt-2 text-center">Cy = -2.8, Cx = 2.8</div>
+              </div>
+            </div>
+            
+            <div class="lg:my-auto">
+              <div class="text-center font-semibold mt-4 lg:mt-0">Focus Distance</div>
+              <div class="flex flex-row h-full lg:flex-col">
+                <div class="text-center px-2 my-auto">Farthest</div>
+                <input type="range" min="1" max="8" value="7" class="slider lg:mx-auto" id="chessDepth" oninput="refocus('chessDepth')">
+                <div class="text-center px-2 my-auto">Closest</div>
+              </div>
+            </div>
+          </div>
+  
+          <div class="mx-auto w-full my-8 lg:flex lg:flex-row lg:w-2/3" id="refocus-lego">
+            <div class="flex-grow">
+              <div id="legosDepth7" class="legosDepthImg mx-auto w-1/2 hidden">
+                <img src="images/legos_4_4.jpg"/>
+                <div class="font-semibold mt-2 text-center">Cy = 4, Cx = 4</div>
+              </div>
+              <div id="legosDepth6" class="legosDepthImg mx-auto w-1/2 hidden">
+                <img src="images/legos_3_3.jpg"/>
+                <div class="font-semibold mt-2 text-center">Cy = 3, Cx = 3</div>
+              </div>
+              <div id="legosDepth5" class="legosDepthImg mx-auto w-1/2 hidden">
+                <img src="images/legos_2_2.jpg"/>
+                <div class="font-semibold mt-2 text-center">Cy = 2, Cx = 2</div>
+              </div>
+              <div id="legosDepth4" class="legosDepthImg mx-auto w-1/2 hidden">
+                <img src="images/legos_1_1.jpg"/>
+                <div class="font-semibold mt-2 text-center">Cy = 1, Cx = 1</div>
+              </div>
+              <div id="legosDepth3" class="legosDepthImg mx-auto w-1/2">
+                <img src="images/legos_0_0.jpg"/>
+                <div class="font-semibold mt-2 text-center">Cy = 0, Cx = 0</div>
+              </div>
+              <div id="legosDepth2" class="legosDepthImg mx-auto w-1/2 hidden">
+                <img src="images/legos_-1_-1.jpg"/>
+                <div class="font-semibold mt-2 text-center">Cy = -1, Cx = -1</div>
+              </div>
+              <div id="legosDepth1" class="legosDepthImg mx-auto w-1/2 hidden">
+                <img src="images/legos_-2_-2.jpg"/>
+                <div class="font-semibold mt-2 text-center">Cy = -2, Cx = -2</div>
+              </div>
+            </div>
+
+            <div class="lg:my-auto">
+              <div class="text-center font-semibold mt-4 lg:mt-0">Focus Distance</div>
+              <div class="flex flex-row h-full lg:flex-col">
+                <div class="text-center px-2 my-auto">Farthest</div>
+                <input type="range" min="1" max="7" value="3" class="slider lg:mx-auto" id="legosDepth" oninput="refocus('legosDepth')">
+                <div class="text-center px-2 my-auto">Closest</div>
+              </div>
+            </div>
+          </div>
+  
+          <div class="mb-2">
+            Note: The lego knights seem to have a bit more complicated geometry than the chessboard, so the transition between focal distances is less smooth.
+            For example, focusing on the close arm of the lego figure leaves the other arm blurry.
+          </div>
+        </div>
+
+        <div id="sectB2" class="mb-8">
+          <h3 class="pl-1 mb-2 font-semibold text-2xl bg-red-100">Aperture Adjustment</h3>
+          <div class="mb-2">
+            For this problem, we simulate multiple different camera apertures by changing the number of images combined into the average image. For example, the average of
+            many images mimics a large aperture, and the average of only a few images mimics a small aperture.
+          </div>
+          <div class="mb-2">
+            Using the previous part, we first shift the images so that they all focus on the center of the chessboard (using <span class="font-semibold">Cy = -1, Cx = 1</span>).
+            Then, we take the average of only images taken within a specific radius from the center of the camera coordinate grid.
+            Increasing this radius increases the number of images averaged, simulating a larger aperture.
+          </div>
+  
+          <div class="mx-auto w-full my-8 lg:flex lg:flex-row lg:w-2/3" id="aperture-chess">
+            <div class="flex-grow">
+              <div id="chessAp7" class="chessApImg mx-auto w-full">
+                <img src="images/chess_ap0.jpg"/>
+                <div class="font-semibold mt-2 text-center">R = 0 (1 image)</div>
+              </div>
+              <div id="chessAp6" class="chessApImg mx-auto w-full hidden">
+                <img src="images/chess_ap2.jpg"/>
+                <div class="font-semibold mt-2 text-center">R = 2 (13 images)</div>
+              </div>
+              <div id="chessAp5" class="chessApImg mx-auto w-full hidden">
+                <img src="images/chess_ap4.jpg"/>
+                <div class="font-semibold mt-2 text-center">R = 4 (49 images)</div>
+              </div>
+              <div id="chessAp4" class="chessApImg mx-auto w-full hidden">
+                <img src="images/chess_ap6.jpg"/>
+                <div class="font-semibold mt-2 text-center">R = 6 (113 images)</div>
+              </div>
+              <div id="chessAp3" class="chessApImg mx-auto w-full hidden">
+                <img src="images/chess_ap8.jpg"/>
+                <div class="font-semibold mt-2 text-center">R = 8 (197 images)</div>
+              </div>
+              <div id="chessAp2" class="chessApImg mx-auto w-full hidden">
+                <img src="images/chess_ap10.jpg"/>
+                <div class="font-semibold mt-2 text-center">R = 10 (277 images)</div>
+              </div>
+              <div id="chessAp1" class="chessApImg mx-auto w-full hidden">
+                <img src="images/chess_ap12.jpg"/>
+                <div class="font-semibold mt-2 text-center">R = 12 (289 images)</div>
+              </div>
+            </div>
+            
+            <div class="my-auto">
+              <div class="text-center font-semibold mt-4 lg:mt-0">Simulated Aperature</div>
+              <div class="flex flex-row h-full lg:flex-col">
+                <div class="text-center px-2 my-auto">Smallest</div>
+                <input type="range" min="1" max="7" value="7" class="slider lg:mx-auto" id="chessAp" oninput="refocus('chessAp')">
+                <div class="text-center px-2 my-auto">Largest</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="sectB3" class="mb-8">
+          <h3 class="pl-1 mb-2 font-semibold text-2xl bg-red-100">GIF Gallery</h3>
+          <div class="pb-10">
+            <img class="w-1/2 mx-auto" src="gifs/chess_refocus.gif"/>
+            <div class="text-center font-semibold">Depth Refocusing - Chessboard</div>
+          </div>
+          <div class="pb-10">
+            <img class="w-1/2 mx-auto" src="gifs/legos_refocus.gif"/>
+            <div class="text-center font-semibold">Depth Refocusing - Lego Knights</div>
+          </div>
+          <div class="pb-10">
+            <img class="w-1/2 mx-auto" src="gifs/chess_ap.gif"/>
+            <div class="text-center font-semibold">Aperture Adjustment - Chessboard</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

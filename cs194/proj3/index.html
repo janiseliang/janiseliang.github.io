@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Face Morphing</title>
+    <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="my-20 w-full">
+      <div id="title" class="m-8 mx-20">
+        <h1 class="pb-2 text-center text-5xl font-semibold">Project 3: Face Morphing</h1>
+        <h2 class="text-center text-2xl font-normal">Janise Liang</h2>
+      </div>
+
+      <div id="summary" class="m-8 mx-20">
+        <h3 class="mb-2 font-semibold text-2xl bg-teal-100">Summary</h3>
+        <div class="flex flex-row space-x-10">
+          <div class="flex-grow">
+            <div class="mb-2">In this project, we use a combination of shape warping and cross-dissolving to create morphs of two different faces. We control the warp by identifying "anchor" points, such as the corner of the eyes and mouth, and creating a triangular grid with these points. We then performed an affine transformation between the two differently-shaped triangles.</div>
+
+            <div class="mb-2">Stiching together a series of morphed images lets us create GIFs like the one on the right. If we select good anchor points, it ends up looking almost seamless.</div>
+            <div class="my-2 border border-gray-400 py-2 pb-4 px-4 w-1/2">
+              <div class="text-lg font-semibold">Contents:</div>
+              <ul class="ml-2">
+                <li>
+                  <a href="#p1" class="text-teal-500 hover:text-teal-700">Part 1: Point Correspondences and Triangulation</a>
+                </li>
+                <li>
+                  <a href="#p2" class="text-teal-500 hover:text-teal-700">Part 2: The "Mid-way Face"</a>
+                </li>
+                <li>
+                  <a href="#p3" class="text-teal-500 hover:text-teal-700">Part 3: Morphing Sequence</a>
+                </li>
+                <li>
+                  <a href="#p4" class="text-teal-500 hover:text-teal-700">Part 4: Mean Face of a Population</a>
+                </li>
+                <li>
+                  <a href="#p5" class="text-teal-500 hover:text-teal-700">Part 5: Caricatures</a>
+                </li>
+                <li>
+                  <a href="#p6" class="text-teal-500 hover:text-teal-700">Part 6: Bells and Whistles</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="flex-grow">
+            <img src="images/ryans.gif" alt="average-neutral" />
+            <div class="mt-2 text-center">Gosling-Reynolds morph</div>
+            <div class="text-center text-sm italic">(see part 3)</div>
+          </div>
+        </div>
+      </div>
+
+      <div id="p1" class="m-8 mx-20">
+        <h3 class="mb-2 font-semibold text-2xl bg-teal-100">Part 1: Point-matching and Triangulation</h3>
+        <div>For each pair of images in the morph, I manually selected anchor points to define how the image shape is warped. Then, I calculate a Delauney triangulation on the midpoint of each point-pair. Calculating the triangulation only once ensures that both images have the same mappings.</div>
+        <div class="container mt-8 mb-4 mx-auto grid grid-cols-2 gap-2">
+          <div class="w-full rounded mx-auto">
+            <img class="mx-auto w-1/2" src="images/robin-tri.jpg" alt="robin-triangles" />
+            <div class="mt-2 text-center">Robin, Delauney triangulation</div>
+          </div>
+          <div class="w-full rounded mx-auto">
+            <img class="mx-auto w-1/2" src="images/steve-tri.jpg" alt="steve-triangles" />
+            <div class="mt-2 text-center">Steve, Delauney triangulation</div>
+          </div>
+        </div>
+        <div class="italic">Note: in addition to the manually selected points, I added anchors in each corner of the image. This guarantees that every pixel is located in a triangle.</div>
+      </div>
+
+      <div id="p2" class="m-8 mx-20">
+        <h3 class="mb-2 font-semibold text-2xl bg-teal-100">Part 2: The "Mid-way Face"</h3>
+        <div class="mb-2">To compute the midway face, I first find the midway shape using the midpoint of each image's corresponding anchor points. Then, we compute the affine transformation matrices from each image to the midway shape.</div>
+        <div class="mb-2">Since we want to find the midway face's pixel values by sampling instead of forward mapping, we calculate the inverse of the affine transformation. This allows us to map every pixel in the midway image to a location in the original image. When the pixel is mapped to a location between pixels, we use interpolation to guess at a value for the pixel.</div>
+        <div>Finally, we average the pixel values from warped images to create a single output image.</div>
+        <div class="container my-8 mx-auto grid grid-cols-3 gap-2 w-3/4">
+          <div class="w-full rounded">
+            <img src="images/ryanr.jpg" alt="original-ryan-r" />
+            <div class="mt-2 text-center">Ryan Reynolds</div>
+          </div>
+          <div class="w-full rounded">
+            <img src="images/ryans.jpg" alt="midway-ryans" />
+            <div class="mt-2 text-center">Ryan ?</div>
+          </div>
+          <div class="w-full rounded">
+            <img src="images/ryang.jpg" alt="original-ryan-g" />
+            <div class="mt-2 text-center">Ryan Gosling</div>
+          </div>
+        </div>
+      </div>
+
+      <div id="p3" class="m-8 mx-20">
+        <h3 class="mb-2 font-semibold text-2xl bg-teal-100">Part 3: Morphing Sequence</h3>
+        <div class="mb-2">We can modify the algorithm in part 2 to use a weighted mean for both the midway shape and average pixel brightness. Iterating over the weights from 0 to 1 produces a sequence of images that gradually transform from the first image to the second.</div>
+        <div class="container mx-auto my-8 flex flex-row space-x-10">
+          <div class="w-full rounded mx-auto">
+            <img class="mx-auto" src="images/ryans.gif" alt="ryans-gif" />
+          </div>
+          <div class="w-full rounded mx-auto">
+            <img class="mx-auto w-full" src="images/robin-steve.gif" alt="robin-steve-gif" />
+          </div>
+        </div>
+        <div class="italic">Note: Ryan and Ryan have relatively similar face shapes, so their morph turned out very well. On the other hand, Robin and Steve's extremely different hairstyles cause a bit ghosting, and there isn't really a way to merge the different backgrounds smoothly.</div>
+      </div>
+
+      <div id="p4" class="m-8 mx-20">
+        <h3 class="mb-2 font-semibold text-2xl bg-teal-100">Part 4: Mean Face of a Population</h3>
+        <div class="mb-2">Now, we apply the "mid-way face" concept to multiple images at once. I calculated the average shape over all neutral expression images in the Danish faces dataset, then warped each individual face into the average shape.</div>
+        <div class="mb-2">I noticed that the images of three people in the dataset were grayscale, while the rest were color images. However, the average face is still very colorful since the large number of colored photos smooths out the color.</div>
+
+        <div class="container mt-8 mb-2 mx-auto grid grid-cols-3 gap-2 w-3/4">
+          <div class="w-full rounded">
+            <img src="images/mean_face-1.jpg" alt="average-neutral" />
+            <div class="mt-2 text-center">average neutral person</div>
+          </div>
+          <div class="w-full rounded">
+            <img src="images/mean_face-2.jpg" alt="average-smile" />
+            <div class="mt-2 text-center">average smiling person</div>
+          </div>
+          <div class="w-full rounded">
+            <img src="images/mean_face-1f.jpg" alt="average-female" />
+            <div class="mt-2 text-center">average neutral female</div>
+          </div>
+        </div>
+        <div class="italic mb-8">Note: There are only 7 females in this dataset, so the average female face has a lot more ghosting than the average of all faces.</div>
+      
+        <div class="mb-2">I attempted to use the average face to create a color image out of the black and white faces. Since we have to take most of the pixel values from the colored mean face, this adds a lot of ghostly artifacts, but it does end up looking like a relatively realistic coloring of the face.</div>
+        <div class="container my-8 mx-auto grid grid-cols-3 gap-2 w-3/4">
+          <div class="w-full rounded">
+            <img src="images/mean_face-1.jpg" alt="average-neutral" />
+            <div class="mt-2 text-center">average neutral person</div>
+          </div>
+          <div class="w-full rounded">
+            <img src="images/gray_face.jpg" alt="average-smile" />
+            <div class="mt-2 text-center">black and white neutral person</div>
+          </div>
+          <div class="w-full rounded">
+            <img src="images/recolor_face.jpg" alt="average-female" />
+            <div class="mt-2 text-center">average face warped into individual</div>
+          </div>
+        </div>
+
+        <div class="container my-8 mx-auto grid grid-cols-3 gap-2 w-3/4">
+          <div class="w-full rounded">
+            <img src="images/mean_face-1f.jpg" alt="average-neutral" />
+            <div class="mt-2 text-center">average neutral female</div>
+          </div>
+          <div class="w-full rounded">
+            <img src="images/06-1m.jpg" alt="average-smile" />
+            <div class="mt-2 text-center">male individual</div>
+          </div>
+          <div class="w-full rounded">
+            <img src="images/male_to_female_face.jpg" alt="average-female" />
+            <div class="mt-2 text-center">average female warped into male individual</div>
+          </div>
+        </div>
+      </div>
+
+      <div id="p6" class="m-8 mx-20">
+        <h3 class="mb-2 font-semibold text-2xl bg-teal-100">Bells & Whistles</h3>
+        <div class="mb-2">I also made an attempt to morph between a human face and a wolf. However, it was very hard to decide the point correspondences, so the morph sequence ended up looking a little bit silly.</div>
+        <div class="container my-8 mx-auto grid grid-cols-3 gap-2 w-3/4">
+          <div class="w-full rounded">
+            <img src="images/wolf-tri.jpg" alt="wolf" />
+            <div class="mt-2 text-center mb-2">wolf triangulation</div>
+          </div>
+          <div class="w-full rounded">
+            <img src="images/wolverine-tri.jpg" alt="wolverine" />
+            <div class="mt-2 text-center mb-2">wolverine triangulation</div>
+          </div>
+          <div class="w-full rounded">
+            <img src="images/wolferine.gif" alt="wolf-wolverine-morph" />
+            <div class="mt-2 text-center mb-2">wolferine morph</div>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+  </body>
+</html>

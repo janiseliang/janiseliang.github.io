@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Photo Mosaics</title>
+    <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet" />
+  </head>
+
+  <body>
+    <div class="w-full">
+      <div id="part1" class="m-8 mx-20">
+        <h2 class="pb-2 text-left text-4xl font-semibold">Gradient Domain Fusion</h2>
+        
+        <div id="sectA1" class="mb-8">
+          <h3 class="pl-1 mb-2 font-semibold text-2xl bg-teal-100">Toy Problem</h3>
+          <div class="mb-2">
+            For the toy problem, we attempt to reconstruct the full input image from only its gradients in addition to the intensity of a single pixel - 
+            we arbitrarily chose the top left pixel, located at coordinates <span class="font-semibold">(x=0, y=0)</span>. To do this, we
+            construct a system of linear equations <span class="font-semibold">Av = b</span>, where <span class="font-semibold">v</span>
+            is the flattened vector corresponding to the reconstructed image. Each row of the equation matrix corresponds to either a
+            horizontal or vertical gradient between two adjacent pixels. Solving this system using least squares recovers the vector v, which we
+            reshape into the 2D image. The result looks identical to the input image!
+          </div>
+          <img class="mx-auto w-1/2" src="images/toy_problem.png" alt="toy-reconstruction" />
+        </div>
+
+        <div id="sectA2" class="mb-8">
+          <h3 class="pl-1 mb-2 font-semibold text-2xl bg-teal-100">Poisson Blending</h3>
+          <div class="mb-2">
+            The objective for this problem is similar to, but a little bit more complex than the toy problem.
+            In this case, we aren't blending the entire image, but only a region specified by an inputted mask.
+            The mask generates a source region <span class="font-semibold">S</span>, and each pixel in this region has
+            a corresponding output pixel in the output vector <span class="font-semibold">v</span>.
+            
+            Each pixel in the region generates 4 gradient equations, one for each of its 4 neighbors in the horizontal and vertical directions.
+            If the neighbor pixel is outside of the source region, we can calculate the output gradient using the background image's pixel instead.
+          </div>
+
+          <div class="mb-2">Note: In order to prevent excessive memory usage, I use <code>scipy.sparse</code> matrix</div>
+
+          <div class="mb-2">Using <span class="font-semibold">v</span> to denote the output image, <span class="font-semibold">s</span> for the (foreground) source image, and <span class="font-semibold">t</span> for the (background) target image, the objective becomes:</div>
+          <img class="mx-auto w-1/2" src="images/poissonblend_eq.png" alt="poisson-objective" />
+
+          <div class="mb-2 font-bold">Results:</div>
+
+          <div class="container my-8 mx-auto grid grid-cols-3 gap-2 w-3/4">
+            <div class="">
+              <img src="images/snow hikers.jpg" alt="hikers-snow" />
+              <div class="mt-2 text-center font-semibold">Hikers in snow</div>
+            </div>
+            <div class="w-1/2 mx-auto">
+              <img src="images/masked_penguin.png" alt="penguin-mask" />
+              <div class="mt-2 text-center font-semibold">Penguin (masked)</div>
+            </div>
+            <div class="">
+              <img src="images/penguin3_snow.jpg" alt="penguin-hikers" />
+              <div class="mt-2 text-center font-semibold">Blended Image</div>
+            </div>
+          </div>
+
+          <div class="container my-8 mx-auto grid grid-cols-3 gap-2 w-3/4">
+            <div class="">
+              <img src="images/pool.jpg" alt="pool" />
+              <div class="mt-2 text-center font-semibold">Pool</div>
+            </div>
+            <div class="mx-auto my-auto">
+              <img src="images/masked_shark.png" alt="shark-mask" />
+              <div class="mt-2 text-center font-semibold">Shark (masked)</div>
+            </div>
+            <div class="">
+              <img src="images/shark_pool.jpg" alt="shark-pool" />
+              <div class="mt-2 text-center font-semibold">Blended Image</div>
+            </div>
+          </div>
+
+          <div class="container my-8 mx-auto grid grid-cols-4 gap-2 w-3/4">
+            <div class="w-3/4 mx-auto">
+              <img src="images/campanile.jpg" alt="pool" />
+              <div class="mt-2 text-center font-semibold">Campanile</div>
+            </div>
+            <div class="w-2/3 mx-auto my-auto">
+              <img src="images/masked_moon.png" alt="shark-mask" />
+              <div class="mt-2 text-center font-semibold">Moon (masked)</div>
+            </div>
+            <div class="w-3/4 mx-auto">
+              <img src="images/campanile_moon.jpg" alt="shark-pool" />
+              <div class="mt-2 text-center font-semibold">Blended Image</div>
+            </div>
+            <div class="w-3/4 mx-auto">
+              <img src="images/old_campanile_moon.jpg" alt="shark-pool" />
+              <div class="mt-2 text-center font-semibold">Laplacian Pyramid Image (Project 2)</div>
+            </div>
+          </div>
+
+          <div>
+            <div class="font-bold">The good and the bad:</div>
+            <div class="mt-2">
+              For the shark/pool image we can see very visible blurring around the edges of the shark, made obvious due to the tiled texture of the pool floor.
+              This is because we take the gradients from the shark image to reconstruct the blended region, and end up losing the gradients created by the tile lines. I deal
+              with this issue a bit better in the mixed gradients (bells and whistles) section.
+            </div>
+            <div class="mt-2">
+              For the campanile/moon image, the moon ended up looking more like a sun because it blended with the very bright sky. Overall though, the seams are much better
+              than the Laplacian pyramid blending from project 2. In project 2, we had to select the mask much more carefully, and there was a strange shadow behind the moon.
+            </div>
+          </div>
+        </div>
+
+        <div id="sectA3">
+          <h3 class="pl-1 mb-2 font-semibold text-2xl bg-teal-100">Bells & Whistles (Mixed Gradients)</h3>
+          <div class="mb-2">
+            The mixed gradients problem is nearly identical to the regular problem, except we will use the target image's gradients in the objective if it has a larger magnitude than the source gradient.
+            As mentioned before, this allows us to preserve some of the textures of the background image in the blended region.
+          </div>
+
+          <div class="mb-2">
+            In this example, I try to blend a birthday card onto a brick wall. Notice that the mask covers the entire card and includes a lot of white space.
+            Using the previous part's Poisson blending approach (without mixed gradients), we get a very blurry-looking rectangle. The lines from the bricks appear to have been blurred out. 
+          </div>
+          <div class="container my-8 mx-auto grid grid-cols-3 gap-2 w-3/4">
+            <div class="">
+              <img src="images/wall.jpg" alt="wall" />
+              <div class="mt-2 text-center font-semibold">Colorful Wall</div>
+            </div>
+            <div class="mx-auto w-3/4">
+              <img src="images/masked_card.png" alt="card" />
+              <div class="mt-2 text-center font-semibold">Birthday Card (masked)</div>
+            </div>
+            <div class="">
+              <img src="images/colorwall.jpg" alt="bad-wall-card" />
+              <div class="mt-2 text-center font-semibold">Regular (Not Mixed) Blended Image</div>
+            </div>
+          </div>
+
+          <div class="mb-4">
+            Using mixed gradients, the details of the wall are much more visible behind the card. It looks like the paper has melted right into the wall!
+          </div>
+          <img class="mx-auto w-1/2" src="images/colorwall_mixed.jpg" alt="wall-card" />
+          <div class="mt-2 text-center font-semibold">Mixed Gradients Blended Image</div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html style="font-size: 16px;" lang="en"><head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="Projects">
+    <meta name="description" content="">
+    <title>Prokudin-Gorskii Images</title>
+    <link rel="stylesheet" href="nicepage.css" media="screen">
+<link rel="stylesheet" href="Prokudin-Gorskii-Images.css" media="screen">
+    <script class="u-script" type="text/javascript" src="jquery-1.9.1.min.js" defer=""></script>
+    <script class="u-script" type="text/javascript" src="nicepage.js" "="" defer=""></script>
+    <meta name="generator" content="Nicepage 4.17.13, nicepage.com">
+    <link id="u-theme-google-font" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i|Open+Sans:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i">
+    <link id="u-page-google-font" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Oswald:200,300,400,500,600,700|Oswald:200,300,400,500,600,700">
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <script type="application/ld+json">{
+		"@context": "http://schema.org",
+		"@type": "Organization",
+		"name": ""
+}</script>
+    <meta name="theme-color" content="#478ac9">
+    <meta property="og:title" content="Prokudin-Gorskii Images">
+    <meta property="og:type" content="website">
+  </head>
+  <body data-home-page="https://website2771520.nicepage.io/Prokudin-Gorskii-Images.html?version=854ae740-d430-4021-8591-0e62db3ce34e" data-home-page-title="Prokudin-Gorskii Images" class="u-body u-xl-mode" data-lang="en"> 
+    <section class="u-align-center-lg u-align-center-md u-align-center-xl u-align-left-sm u-align-left-xs u-clearfix u-image u-section-1" id="sec-18b5" data-image-width="3170" data-image-height="2796">
+      <h1 class="u-text u-text-1">
+        <span style="font-weight: 700;"> Images of the Russian Empire:</span>
+        <br><i>
+          <span style="font-style: normal;">Colorizing the Prokodin-Gorskii photo collection</span></i>
+      </h1>
+      <p class="u-custom-font u-font-oswald u-text u-text-2">Janise Liang</p>
+      <div class="u-border-1 u-border-grey-dark-1 u-line u-line-horizontal u-line-1"></div>
+      <div class="u-container-style u-expanded-width u-group u-palette-2-light-3 u-shape-rectangle u-group-1">
+        <div class="u-container-layout u-container-layout-1">
+          <h2 class="u-align-left u-custom-font u-font-oswald u-text u-text-default u-text-3">Background</h2>
+        </div>
+      </div>
+      <div class="u-container-style u-expanded-width-lg u-expanded-width-xl u-group u-shape-rectangle u-white u-group-2">
+        <div class="u-container-layout u-valign-top-lg u-valign-top-xl u-container-layout-2">
+          <div class="fr-view u-clearfix u-rich-text u-text u-text-4">
+            <p style="line-height: 2;">
+              <span style="font-size: 1.375rem;">In the early 1900's, a Russian named <span style="font-weight: 600;">Sergei Mikhailovich Prokudin-Gorskii</span> gained the Tsar's sponsorship to travel across Russia and photograph all he saw. Each of his photos had 3 versions using red, green, and blue filters, printed on a single glass plate. At the time, there was no technology for printing color photos, but today, we can find Prokudin-Gorskii's images in the Libary of Congress's digital collection, and use his three-channel images to generate a single image in vivid color.
+              </span>
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="u-align-center u-clearfix u-palette-2-light-3 u-section-2" id="sec-9ed8">
+      <div class="u-clearfix u-sheet u-sheet-1">
+        <h2 class="u-align-left u-custom-font u-font-oswald u-text u-text-default u-text-1"> The (Main) Goal</h2>
+      </div>
+    </section>
+    <section class="u-align-left u-clearfix u-section-3" id="sec-daf6">
+      <div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
+        <div class="fr-view u-clearfix u-rich-text u-text u-text-1">
+          <h2>
+            <span style="font-size: 1.375rem; font-weight: 400;">
+              <span class="u-custom-font u-text-font">The input data is a single&nbsp;</span>
+            </span>
+            <span class="u-custom-font u-font-courier-new" style="font-weight: 700; font-size: 1.375rem;">.jpg</span>
+            <span style="font-size: 1.375rem; font-weight: 400;">
+              <span class="u-custom-font u-text-font">&nbsp;or&nbsp;</span>
+            </span>
+            <span class="u-custom-font u-font-courier-new" style="font-weight: 700; font-size: 1.375rem;">.tif</span>
+            <span style="font-size: 1.375rem;">
+              <span style="font-weight: 400;">
+                <span class="u-custom-font u-text-font">&nbsp;file with the blue, green, and red channels from top to bottom. We can overlay the three parts into one image with RGB color channels, but we need to make sure the images are aligned when we overlay them - otherwise we will see lots of strange colors. My main goal here is to improve the alignment algorithm as much as possible.</span>
+              </span>
+            </span>
+          </h2>
+        </div>
+      </div>
+    </section>
+    <section class="u-align-center u-clearfix u-gradient u-section-4" id="sec-12ad">
+      <div class="u-clearfix u-sheet u-sheet-1">
+        <div class="u-expanded-width u-gallery u-layout-grid u-show-text-none u-gallery-1">
+          <div class="u-gallery-inner u-gallery-inner-1">
+            <div class="u-gallery-item">
+              <div class="u-back-slide" data-image-width="390" data-image-height="1024">
+                <img class="u-back-image u-expanded" src="images/cathedral.jpg">
+              </div>
+              <div class="u-over-slide u-shading u-over-slide-1">
+                <h3 class="u-gallery-heading"></h3>
+                <p class="u-gallery-text"></p>
+              </div>
+            </div>
+            <div class="u-gallery-item">
+              <div class="u-back-slide" data-image-width="1003" data-image-height="1003">
+                <img class="u-back-image u-expanded u-image-contain" src="images/arrow.svg">
+              </div>
+              <div class="u-over-slide u-shading u-over-slide-2">
+                <h3 class="u-gallery-heading"></h3>
+                <p class="u-gallery-text"></p>
+              </div>
+            </div>
+            <div class="u-gallery-item">
+              <div class="u-back-slide" data-image-width="390" data-image-height="341">
+                <img class="u-back-image u-expanded u-image-contain" src="images/cathedral-33.jpg">
+              </div>
+              <div class="u-over-slide u-shading u-over-slide-3">
+                <h3 class="u-gallery-heading"></h3>
+                <p class="u-gallery-text"></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="u-clearfix u-palette-2-light-3 u-section-5" id="sec-e00f">
+      <div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
+        <h2 class="u-custom-font u-font-oswald u-text u-text-default u-text-1">Alignment!</h2>
+      </div>
+    </section>
+    <section class="u-clearfix u-section-6" id="sec-a243">
+      <div class="u-clearfix u-sheet u-sheet-1">
+        <div class="fr-view u-clearfix u-rich-text u-text u-text-1">
+          <p>
+            <span class="u-text-body-color" style="font-size: 1.375rem;">We want to find a metric that can evaluate how well-aligned the three channels are. Two metrics suggested by course staff are the <span style="font-weight: 700;">L2 Norm</span> and the <span style="font-weight: 700;">Normalized Cross-Correlation</span>.
+            </span>
+          </p>
+          <ol>
+            <li style="font-size: 1.375rem;">
+              <span style="font-weight: 700;">L2 Norm:</span> similar to a vector's L2 norm, we simply find the squared difference for each pixel and sum over all pixels.
+            </li>
+            <li style="font-size: 1.375rem;">
+              <span style="font-weight: 700;">Normalized Cross-Correlation (NCC):</span> first, normalize each matrix by dividing by its L2 norm. then, compute the matrix dot product (sum of elementwise multiplication).
+            </li>
+          </ol>
+          <p>
+            <span class="u-text-body-color" style="font-size: 1.375rem;">
+              <span style="font-style: italic;">* Note that a&nbsp;</span>
+              <span style="font-style: italic;">low L2 score is better, but a high NCC score is better. For consistency, I decided to negate the L2 score in order to make both systems return a higher score on better alignments.</span>
+            </span>
+          </p>
+        </div>
+      </div>
+    </section>
+    <section class="u-clearfix u-section-7" id="sec-e691">
+      <div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
+        <div class="u-expanded-width u-list u-list-1">
+          <div class="u-repeater u-repeater-1">
+            <div class="u-container-style u-list-item u-repeater-item">
+              <div class="u-container-layout u-similar-container u-container-layout-1">
+                <img alt="" class="u-expanded-width u-image u-image-contain u-image-default u-image-1" data-image-width="390" data-image-height="341" src="images/cathedral-default.jpg">
+                <p class="u-align-center u-text u-text-1">default alignment (no shift)</p>
+              </div>
+            </div>
+            <div class="u-container-style u-list-item u-repeater-item">
+              <div class="u-container-layout u-similar-container u-container-layout-2">
+                <img alt="" class="u-expanded-width u-image u-image-contain u-image-default u-image-2" data-image-width="390" data-image-height="341" src="images/cathedral-L2.jpg">
+                <p class="u-align-center u-text u-text-2"> best L2 alignment</p>
+              </div>
+            </div>
+            <div class="u-container-style u-list-item u-repeater-item">
+              <div class="u-container-layout u-similar-container u-container-layout-3">
+                <img alt="" class="u-expanded-width u-image u-image-contain u-image-default u-image-3" data-image-width="390" data-image-height="341" src="images/cathedral-bad-NCC.jpg">
+                <p class="u-align-center u-text u-text-3">best NCC alignment</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="u-align-left u-clearfix u-section-8" id="sec-c48e">
+      <div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
+        <div class="fr-view u-align-left u-clearfix u-rich-text u-text u-text-1">
+          <p>
+            <span style="font-size: 1.375rem;">A visual comparison indicates that the NCC performed the best, at least for this image. I decided to build a modified NCC metric that could improve on the current one, since we still see artifacts such as the blue tint at the top of the treeline.</span>
+          </p>
+          <p>
+            <span style="font-size: 1.375rem;">The solid black/white edges are not part of the image, so we don't want to score this area. We observe that the edges are around 5% of the image on each side, so we can trim thesse edges before normalization and taking the dot product. However, we still want to keep the edges when doing image operations so that each channel has the same image size, and so we don't lose data.</span>
+          </p>
+          <h4>
+            <span class="u-custom-font u-text-font" style="text-decoration: underline;">Modified Normalized Cross-Correlation Algorithm:</span>
+          </h4>
+          <ol>
+            <li style="font-size: 1.375rem; text-align: left;">
+              <span style="font-weight: 700;">center each matrix by subtracting the trimmed mean:&nbsp;</span>this helps deal with images that might be very extreme in one color channel, but not in others
+            </li>
+            <li style="font-size: 1.375rem; text-align: left;">
+              <span style="font-weight: 700;">divide the original by the L2 norm of the trimmed matrix to normalize</span>
+            </li>
+            <li style="font-size: 1.375rem; text-align: left;">
+              <span style="font-weight: 700;">calculate the dot product on the trimmed &amp; normalized matrix</span>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </section>
+    <section class="u-align-center u-clearfix u-palette-2-light-3 u-section-9" id="sec-25ad">
+      <div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
+        <h2 class="u-align-left u-custom-font u-font-oswald u-text u-text-default u-text-1">Search Algorithm</h2>
+      </div>
+    </section>
+    <section class="u-align-left u-clearfix u-section-10" id="sec-9e5a">
+      <div class="u-clearfix u-sheet u-sheet-1">
+        <div class="u-clearfix u-group-elements u-group-elements-1">
+          <p class="u-align-center u-custom-font u-font-oswald u-text u-text-1">.<br>.<br>. 
+          </p>
+          <img class="u-image u-image-default u-image-1" src="images/train_8.jpg" alt="" data-image-width="468" data-image-height="405">
+          <img class="u-image u-image-default u-image-2" src="images/train_2.jpg" alt="" data-image-width="1248" data-image-height="1080">
+          <img class="u-image u-image-default u-image-3" src="images/train_4.jpg" alt="" data-image-width="936" data-image-height="810">
+          <p class="u-align-right u-custom-font u-font-courier-new u-text u-text-2"> 3238 x 3741</p>
+          <p class="u-align-right u-custom-font u-font-courier-new u-text u-text-3"> 1619 x 1871</p>
+          <p class="u-align-right u-custom-font u-font-courier-new u-text u-text-4">
+            <span style="font-weight: 700;"> 810 x 936</span>
+          </p>
+        </div>
+        <div class="fr-view u-clearfix u-rich-text u-text u-text-5">
+          <div class="fr-wrapper" dir="auto">
+            <div class="fr-element fr-view" dir="auto" spellcheck="true">
+              <p style="text-align: left; line-height: 1.6;">
+                <span style="font-size: 1.25rem;">The simplest search method is the <span style="font-weight: 700;">exhaustive search</span>, which iterates over a set of possible shifts and finds the best-scoring alignment. For the smaller JPG images, a set of shifts of up to 15 in both directions was sufficient to find an ideal alignment.
+                </span>
+              </p>
+              <p>
+                <span style="font-size: 1.25rem;">For the larger <span class="u-custom-font u-font-courier-new" style="font-weight: 700;">.tif</span> images however, we'd have to increase the search range to around 50 to align most images. However, doing an exhaustive search on larger ranges will increase the total number of searches quadratically, which would take a very long time.
+                </span>
+              </p>
+              <p>
+                <span style="font-size: 1.25rem;">To fix this, we use a <span style="font-weight: 700;">pyramid search</span> algorithm, which first tries to aligns a version of the image downscaled to around 300 pixels, then recursively align less-downscaled versions. After the first alignment, we only have to search in the [-1, 0, 1] offsets, since the previous iteration covers steps that are multiples of 2.
+                </span>
+              </p>
+            </div>
+          </div>
+          <div class="fr-second-toolbar">
+            <br>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="u-clearfix u-palette-2-light-3 u-section-11" id="sec-5e17">
+      <div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
+        <h2 class="u-custom-font u-font-oswald u-text u-text-default u-text-1">Initial Results &amp; Observations</h2>
+      </div>
+    </section>
+    <section class="u-align-left u-clearfix u-section-12" id="sec-3189">
+      <div class="u-clearfix u-sheet u-sheet-1">
+        <div class="fr-view u-clearfix u-rich-text u-text u-text-1">
+          <p>
+            <span style="font-size: 1.375rem;">I aligned the images using the modified NCC metric described above. In addition to the images provided by course staff, I also downloaded additional glass negatives from the original collection on the <a href="https://www.loc.gov/pictures/collection/prok/related/?q=Glass%20negatives.&amp;fi=format&amp;sb=call_number" target="_blank" rel="noopener noreferrer"></a>
+              <a class="u-active-none u-border-none u-btn u-button-style u-hover-none u-none u-text-palette-1-base u-btn-1" href="https://www.loc.gov/pictures/collection/prok/related/?q=Glass%20negatives.&amp;fi=format&amp;sb=call_number" target="_blank">Library of Congress website</a>.<br id="isPasted">
+              <br>Most of the images turned out well! Unfortunately, a few images aren't aligned very well. This is likely due to the fact that one channel may have a very different pattern than another. In the section below, I will use edge detection to create a better matching for such images.<br>
+              <br>Another observation of note is that the images have visible multicolored edges due to the original edges on the individual channels. I will also investigate this in a future section while attempting to automatically remove the edges.
+            </span>
+          </p>
+        </div>
+      </div>
+    </section>
+    <section class="u-clearfix u-section-13" id="sec-ac7d">
+      <div class="u-clearfix u-sheet u-sheet-1">
+        <p class="u-heading-font u-text u-text-default u-text-1">Some examples of slightly misaligned images:</p>
+        <div class="u-expanded-width u-gallery u-layout-grid u-lightbox u-no-transition u-show-text-none u-gallery-1">
+          <div class="u-gallery-inner u-gallery-inner-1">
+            <div class="u-gallery-item">
+              <div class="u-back-slide" data-image-width="3702" data-image-height="3209">
+                <img class="u-back-image u-expanded u-image-contain" src="images/emir-27.jpg">
+              </div>
+              <div class="u-over-slide u-shading u-over-slide-1">
+                <h3 class="u-gallery-heading"></h3>
+                <p class="u-gallery-text"></p>
+              </div>
+            </div>
+            <div class="u-gallery-item">
+              <div class="u-back-slide" data-image-width="1226" data-image-height="1080">
+                <img class="u-back-image u-expanded u-image-contain" src="images/church-38.jpg">
+              </div>
+              <div class="u-over-slide u-shading u-over-slide-2">
+                <h3 class="u-gallery-heading"></h3>
+                <p class="u-gallery-text"></p>
+              </div>
+            </div>
+            <div class="u-gallery-item">
+              <div class="u-back-slide" data-image-width="3770" data-image-height="3241">
+                <img class="u-back-image u-expanded u-image-contain" src="images/melons-32.jpg">
+              </div>
+              <div class="u-over-slide u-shading u-over-slide-3">
+                <h3 class="u-gallery-heading"></h3>
+                <p class="u-gallery-text"></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="u-clearfix u-palette-2-light-3 u-section-14" id="sec-5572">
+      <div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
+        <h2 class="u-custom-font u-font-oswald u-text u-text-default u-text-1">Extension 1: edge-detection alignment</h2>
+      </div>
+    </section>
+    <section class="u-align-left u-clearfix u-section-15" id="sec-d9be">
+      <div class="u-clearfix u-sheet u-sheet-1">
+        <div class="fr-view u-clearfix u-rich-text u-text u-text-1">
+          <p>
+            <span style="font-size: 1.25rem;">With some images, one channel was not well-aligned with the other two. In the case of the Emir image, this is likely because the subject's clothing contains very little red, so we cannot just match the brightness of the each channel.</span>
+          </p>
+          <p>
+            <span style="font-size: 1.25rem;">One solution is to align detected edges instead of brightness. This will hopefully match the outline of the subject and maybe the lines in the background, which we can use to align the image more accurately.</span>
+          </p>
+          <p>
+            <span style="font-size: 1.25rem;">I used the&nbsp;<a href="https://scikit-image.org/docs/stable/api/skimage.filters.html#skimage.filters.sobel"></a>
+              <a class="u-active-none u-border-none u-btn u-button-style u-hover-none u-none u-text-palette-1-base u-btn-1" href="https://scikit-image.org/docs/stable/api/skimage.filters.html#skimage.filters.sobel" rel="noopener noreferrer" target="_blank">Sobel filter from scikit-image</a> to do the edge detection, then ran the pyramid search with the modified NCC, using the detected edges instead of the original image.
+            </span>
+          </p>
+        </div>
+        <img class="u-border-3 u-border-palette-2-base u-image u-image-default u-image-1" src="images/emir_edges_r.jpg" alt="" data-image-width="3340" data-image-height="3069">
+        <img class="u-align-left u-border-3 u-border-palette-1-base u-image u-image-default u-image-2" src="images/emir_edges_b.jpg" alt="" data-image-width="3356" data-image-height="3013">
+        <img class="u-image u-image-default u-image-3" src="images/emir.jpg" alt="" data-image-width="3702" data-image-height="3209">
+        <img class="u-align-left u-image u-image-default u-image-4" src="images/emir-27.jpg" alt="" data-image-width="3702" data-image-height="3209">
+        <div class="u-align-center u-shape u-shape-svg u-text-black u-shape-1">
+          <svg class="u-svg-link" preserveAspectRatio="none" viewBox="0 0 160 100" style=""><use xlink:href="#svg-8a39"></use></svg>
+          <svg class="u-svg-content" viewBox="0 0 160 100" x="0px" y="0px" id="svg-8a39" style="enable-background:new 0 0 160 100;"><g><path d="M109.2,99.9L160,50L109.2,0H75.6l38.7,38H0v24.2h114L75.6,100L109.2,99.9z"></path>
+</g></svg>
+        </div>
+        <p class="u-align-center-lg u-align-center-md u-align-center-sm u-align-center-xs u-text u-text-2">Best NCC on pixel brightness<br>
+        </p>
+        <p class="u-align-center-lg u-align-center-md u-align-center-sm u-align-center-xs u-text u-text-3">Best NCC on detected edges</p>
+      </div>
+    </section>
+    <section class="u-clearfix u-palette-2-light-3 u-section-16" id="sec-935e">
+      <div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
+        <h2 class="u-custom-font u-font-oswald u-text u-text-default u-text-1">Extension 2: auto-cropping</h2>
+      </div>
+    </section>
+    <section class="u-align-left u-clearfix u-section-17" id="sec-3569">
+      <div class="u-clearfix u-sheet u-sheet-1">
+        <div class="fr-view u-clearfix u-rich-text u-text u-text-1">
+          <p style="text-align: left;">
+            <span style="line-height: 2; font-size: 1.25rem;">After noticing the colorful stripes on the edges of the image, I decided to implement an auto-cropping extension as well. In order to find the edges, I separately applied a horizontal and vertical sobel filter to each channel. In order to find the top and bottom crops, I iterate over around 10% of the top and bottom pixels, and find the line with the most number of pixels above a certain adjustable threshold magnitude.</span>
+          </p>
+          <p style="text-align: left;">
+            <span style="line-height: 2; font-size: 1.25rem;">Many of the images had an outer white border and an inner black strip for the edges, and sometimes white digits on the black strip. I ran the auto-cropping function 3 times to crop the white and black strips, and also . The first crop removes the white border, which is very easy to detect since the pixels go from 1 to near-0. The second crop is a little bit less accurate, since parts of the image may sometimes appear a similar color to the black edge. I used a very conservative threshold, since under-cropping is probably better than over-cropping an image.</span>
+          </p>
+        </div>
+      </div>
+    </section>
+    <section class="u-align-left u-clearfix u-section-18" id="sec-44ce" data-animation-name="" data-animation-duration="0" data-animation-delay="0" data-animation-direction="">
+      <div class="u-clearfix u-sheet u-sheet-1">
+        <img class="u-border-2 u-border-palette-2-base u-image u-image-default u-image-1" src="images/self_portrait_crop0.jpg" alt="" data-image-width="3810" data-image-height="3251">
+        <img class="u-border-2 u-border-palette-2-base u-image u-image-default u-image-2" src="images/self_portrait_crop1.jpg" alt="" data-image-width="3538" data-image-height="3251">
+        <img class="u-border-2 u-border-palette-2-base u-image u-image-default u-image-3" src="images/self_portrait_crop2.jpg" alt="" data-image-width="3380" data-image-height="3016">
+        <p class="u-align-center u-heading-font u-large-text u-text u-text-variant u-text-1">Original (No Crop)</p>
+        <p class="u-align-center u-heading-font u-large-text u-text u-text-variant u-text-2">First Crop</p>
+        <p class="u-align-center u-heading-font u-large-text u-text u-text-variant u-text-3">Second Crop</p>
+        <div class="fr-view u-clearfix u-rich-text u-text u-text-4">
+          <p style="text-align: left;">
+            <span style="line-height: 2; font-size: 1.25rem;">In this image, we only needed to run the auto-cropping function twice to remove the edges. Ideally, the third run will not do anything, but there may be mistakes if the image contains a lot of vertical or horizontal lines. After experimenting a bit with the thresholds, I found that it was best to use a high threshold for the first crop, and a lower threshold for the second and third.&nbsp;</span>
+          </p>
+        </div>
+        <img class="u-border-1 u-border-grey-75 u-image u-image-contain u-image-default u-image-4" src="images/self_portrait.jpg" alt="" data-image-width="3810" data-image-height="3251">
+        <img class="u-border-1 u-border-grey-75 u-image u-image-default u-image-5" src="images/self_portrait-34.jpg" alt="" data-image-width="3367" data-image-height="3010">
+        <div class="u-align-center u-shape u-shape-svg u-text-black u-shape-1">
+          <svg class="u-svg-link" preserveAspectRatio="none" viewBox="0 0 160 100" style=""><use xlink:href="#svg-906e"></use></svg>
+          <svg class="u-svg-content" viewBox="0 0 160 100" x="0px" y="0px" id="svg-906e" style="enable-background:new 0 0 160 100;"><g><path d="M109.2,99.9L160,50L109.2,0H75.6l38.7,38H0v24.2h114L75.6,100L109.2,99.9z"></path>
+</g></svg>
+        </div>
+      </div>
+    </section>
+    <section class="u-clearfix u-palette-2-light-3 u-section-19" id="sec-2f32">
+      <div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
+        <h2 class="u-custom-font u-font-oswald u-text u-text-default u-text-1">Final Results!</h2>
+      </div>
+    </section>
+    <section class="u-align-center u-clearfix u-section-20" id="sec-bac3">
+      <div class="u-clearfix u-sheet u-sheet-1">
+        <div class="fr-view u-clearfix u-rich-text u-text u-text-1">
+          <p style="text-align: left;">
+            <span style="font-size: 1.375rem;">Below are my final images after edge alignment and auto-cropping. The final 4 images were downloaded from the Library of Congress's digitalized collection.</span>
+          </p>
+          <p style="text-align: left;">
+            <span style="font-size: 1.375rem;">
+              <br>
+            </span>
+            <span style="font-size: 1.25rem;">
+              <span style="font-style: italic;">Note: One other extension that I wanted to implement was color neutralizing - trying to decrease the reddish tint in the "Lady" photo, and the blueish tint in "Tobolsk." Unfortunately I did not have the time to complete this part. :(</span>
+            </span>
+          </p>
+        </div>
+      </div>
+    </section>
+    <section class="u-clearfix u-gradient u-section-21" id="sec-ad7d">
+      <div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
+        <div class="u-expanded-width u-gallery u-layout-grid u-lightbox u-no-transition u-show-text-none u-gallery-1">
+          <div class="u-gallery-inner u-gallery-inner-1">
+            <div class="u-effect-hover-zoom u-gallery-item" data-image-width="3702" data-image-height="3209">
+              <div class="u-back-slide" data-image-width="350" data-image-height="315">
+                <img class="u-back-image u-expanded u-image-contain" src="images/cathedral-16.jpg">
+              </div>
+              <div class="u-over-slide u-shading u-over-slide-1">
+                <h3 class="u-gallery-heading"></h3>
+                <p class="u-gallery-text"></p>
+              </div>
+            </div>
+            <div class="u-effect-hover-zoom u-gallery-item" data-image-width="370" data-image-height="318">
+              <div class="u-back-slide" data-image-width="1162" data-image-height="1080">
+                <img class="u-back-image u-expanded u-image-contain" src="images/church.jpg">
+              </div>
+              <div class="u-over-slide u-shading u-over-slide-2">
+                <h3 class="u-gallery-heading"></h3>
+                <p class="u-gallery-text"></p>
+              </div>
+            </div>
+            <div class="u-effect-hover-zoom u-gallery-item" data-image-width="1207" data-image-height="1080">
+              <div class="u-back-slide" data-image-width="1152" data-image-height="1080">
+                <img class="u-back-image u-expanded u-image-contain" src="images/emir-25.jpg">
+              </div>
+              <div class="u-over-slide u-shading u-over-slide-3">
+                <h3 class="u-gallery-heading"></h3>
+                <p class="u-gallery-text"></p>
+              </div>
+            </div>
+            <div class="u-effect-hover-zoom u-gallery-item" data-image-width="391" data-image-height="341">
+              <div class="u-back-slide" data-image-width="3363" data-image-height="2990">
+                <img class="u-back-image u-expanded u-image-contain" src="images/harvesters.jpg">
+              </div>
+              <div class="u-over-slide u-shading u-over-slide-4">
+                <h3 class="u-gallery-heading"></h3>
+                <p class="u-gallery-text"></p>
+              </div>
+            </div>
+            <div class="u-effect-hover-zoom u-gallery-item" data-image-width="3741" data-image-height="3238">
+              <div class="u-back-slide" data-image-width="3393" data-image-height="3136">
+                <img class="u-back-image u-expanded u-image-contain" src="images/icon.jpg">
+              </div>
+              <div class="u-over-slide u-shading u-over-slide-5">
+                <h3 class="u-gallery-heading"></h3>
+                <p class="u-gallery-text"></p>
+              </div>
+            </div>
+            <div class="u-effect-hover-zoom u-gallery-item" data-image-width="3810" data-image-height="3251">
+              <div class="u-back-slide" data-image-width="1257" data-image-height="1080">
+                <img class="u-back-image u-expanded u-image-contain" src="images/lady.jpg">
+              </div>
+              <div class="u-over-slide u-shading u-over-slide-6">
+                <h3 class="u-gallery-heading"></h3>
+                <p class="u-gallery-text"></p>
+              </div>
+            </div>
+            <div class="u-effect-hover-zoom u-gallery-item" data-image-width="3781" data-image-height="3215">
+              <div class="u-back-slide" data-image-width="1182" data-image-height="1080">
+                <img class="u-back-image u-expanded u-image-contain" src="images/melons.jpg">
+              </div>
+              <div class="u-over-slide u-shading u-over-slide-7">
+                <h3 class="u-gallery-heading"></h3>
+                <p class="u-gallery-text"></p>
+              </div>
+            </div>
+            <div class="u-effect-hover-zoom u-gallery-item" data-image-width="1250" data-image-height="1080">
+              <div class="u-back-slide" data-image-width="356" data-image-height="292">
+                <img class="u-back-image u-expanded u-image-contain" src="images/monastery.jpg">
+              </div>
+              <div class="u-over-slide u-shading u-over-slide-8">
+                <h3 class="u-gallery-heading"></h3>
+                <p class="u-gallery-text"></p>
+              </div>
+            </div>
+            <div class="u-effect-hover-zoom u-gallery-item" data-image-width="1247" data-image-height="1080">
+              <div class="u-back-slide" data-image-width="3392" data-image-height="3078">
+                <img class="u-back-image u-expanded u-image-contain" src="images/onion_church.jpg">
+              </div>
+              <div class="u-over-slide u-shading u-over-slide-9">
+                <h3 class="u-gallery-heading"></h3>
+                <p class="u-gallery-text"></p>
+              </div>
+            </div>
+            <div class="u-effect-hover-zoom u-gallery-item" data-image-width="1265" data-image-height="1080">
+              <div class="u-back-slide" data-image-width="3577" data-image-height="2951">
+                <img class="u-back-image u-expanded u-image-contain" src="images/sculpture.jpg">
+              </div>
+              <div class="u-over-slide u-shading u-over-slide-10">
+                <h3 class="u-gallery-heading"></h3>
+                <p class="u-gallery-text"></p>
+              </div>
+            </div>
+            <div class="u-effect-hover-zoom u-gallery-item" data-image-width="3800" data-image-height="3257">
+              <div class="u-back-slide" data-image-width="3367" data-image-height="3010">
+                <img class="u-back-image u-expanded u-image-contain" src="images/self_portrait-34.jpg">
+              </div>
+              <div class="u-over-slide u-shading u-over-slide-11">
+                <h3 class="u-gallery-heading"></h3>
+                <p class="u-gallery-text"></p>
+              </div>
+            </div>
+            <div class="u-effect-hover-zoom u-gallery-item" data-image-width="3817" data-image-height="3250">
+              <div class="u-back-slide" data-image-width="1224" data-image-height="1080">
+                <img class="u-back-image u-expanded u-image-contain" src="images/three_generations.jpg">
+              </div>
+              <div class="u-over-slide u-shading u-over-slide-12">
+                <h3 class="u-gallery-heading"></h3>
+                <p class="u-gallery-text"></p>
+              </div>
+            </div>
+            <div class="u-effect-hover-zoom u-gallery-item" data-image-width="3771" data-image-height="3205">
+              <div class="u-back-slide" data-image-width="361" data-image-height="322">
+                <img class="u-back-image u-expanded u-image-contain" src="images/tobolsk.jpg">
+              </div>
+              <div class="u-over-slide u-shading u-over-slide-13">
+                <h3 class="u-gallery-heading"></h3>
+                <p class="u-gallery-text"></p>
+              </div>
+            </div>
+            <div class="u-effect-hover-zoom u-gallery-item" data-image-width="3817" data-image-height="3260">
+              <div class="u-back-slide" data-image-width="1226" data-image-height="1080">
+                <img class="u-back-image u-expanded u-image-contain" src="images/train.jpg">
+              </div>
+              <div class="u-over-slide u-shading u-over-slide-14">
+                <h3 class="u-gallery-heading"></h3>
+                <p class="u-gallery-text"></p>
+              </div>
+            </div>
+            <div class="u-effect-hover-zoom u-gallery-item" data-image-width="3741" data-image-height="3244">
+              <div class="u-back-slide" data-image-width="1183" data-image-height="1080">
+                <img class="u-back-image u-expanded u-image-contain" src="images/river-37.jpg">
+              </div>
+              <div class="u-over-slide u-shading u-over-slide-15">
+                <h3 class="u-gallery-heading"></h3>
+                <p class="u-gallery-text"></p>
+              </div>
+            </div>
+            <div class="u-effect-hover-zoom u-gallery-item" data-image-width="3683" data-image-height="3218">
+              <div class="u-back-slide" data-image-width="3497" data-image-height="3130">
+                <img class="u-back-image u-expanded u-image-contain" src="images/greenhouse.jpg">
+              </div>
+              <div class="u-over-slide u-shading u-over-slide-16">
+                <h3 class="u-gallery-heading"></h3>
+                <p class="u-gallery-text"></p>
+              </div>
+            </div>
+            <div class="u-effect-hover-zoom u-gallery-item" data-image-width="396" data-image-height="341">
+              <div class="u-back-slide" data-image-width="3507" data-image-height="3128">
+                <img class="u-back-image u-expanded u-image-contain" src="images/siren.jpg">
+              </div>
+              <div class="u-over-slide u-shading u-over-slide-17">
+                <h3 class="u-gallery-heading"></h3>
+                <p class="u-gallery-text"></p>
+              </div>
+            </div>
+            <div class="u-effect-hover-zoom u-gallery-item" data-image-width="3770" data-image-height="3241">
+              <div class="u-back-slide" data-image-width="3450" data-image-height="3064">
+                <img class="u-back-image u-expanded u-image-contain" src="images/peony.jpg">
+              </div>
+              <div class="u-over-slide u-shading u-over-slide-18">
+                <h3 class="u-gallery-heading"></h3>
+                <p class="u-gallery-text"></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    
+    
+    <section class="u-backlink u-clearfix u-grey-80">
+      <a class="u-link" href="html5-template" target="_blank">
+        <span>HTML5 Template</span>
+      </a>
+      <p class="u-text">
+        <span>created with</span>
+      </p>
+      <a class="u-link" href="html-website-builder" target="_blank">
+        <span>HTML Creator</span>
+      </a>. 
+    </section><span style="height: 64px; width: 64px; margin-left: 0px; margin-right: auto; margin-top: 0px; right: 20px; bottom: 20px; padding: 10px; box-shadow: 5px 5px 20px 0 rgba(0,0,0,0.4); background-image: none;" class="u-back-to-top u-border-2 u-border-black u-grey-5 u-icon u-icon-circle u-opacity u-opacity-85" data-href="#">
+        <svg class="u-svg-link" preserveAspectRatio="xMidYMin slice" viewBox="0 0 551.13 551.13"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-1d98"></use></svg>
+        <svg class="u-svg-content" enable-background="new 0 0 551.13 551.13" viewBox="0 0 551.13 551.13" xmlns="http://www.w3.org/2000/svg" id="svg-1d98"><path d="m275.565 189.451 223.897 223.897h51.668l-275.565-275.565-275.565 275.565h51.668z"></path></svg>
+    </span>
+  
+</body></html>
