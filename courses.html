@@ -16,40 +16,21 @@
 <body>
 	<header class="navbar">
 		<div class="nav-icon">
-			<img src="assets/images/icon.png" width="188" alt="">
+			<a href="/" class="nav-link silent">
+				<img src="assets/images/icon.png" width="188" alt="">
+			</a>
 		</div>
 		<nav role="navigation" class="nav-menu">
-			<a href="/resume" class="nav-link">Résumé</a>
-			<a href="/courses" aria-current="page" class="nav-link current">Coursework</a>
+			<a href="/resume" aria-current="page" class="nav-link current">Resume</a>
+			<a href="/courses" class="nav-link">Coursework</a>
 		</nav>
 	</header>
 	
 	<main>		
 		<!-- intro -->
 		<div class="section" id="current_courses">
-			<h4>In Progress (Fall 2022):</h4>
-			<ul>
-				<div class="course">
-					<div class="num">CS 194-26</div>
-					<div class="name">Intro to Computer Vision</div>
-					<div class="desc"></div>
-				</div>
-				<div class="course">
-					<div class="num">EE 120</div>
-					<div class="name">Signals and Systems</div>
-					<div class="desc"></div>
-				</div>
-				<div class="course">
-					<div class="num">Math 116</div>
-					<div class="name">Cryptography</div>
-					<div class="desc"></div>
-				</div>
-				<div class="course">
-					<div class="num">Stat 151A</div>
-					<div class="name">Linear Modelling</div>
-					<div class="desc"></div>
-				</div>
-			</ul>
+			<h4>In Progress:</h4>
+			<ul></ul>
 		</div>
 		<div class="section blue" id="completed_courses">
 			<h4>Completed:</h4>
@@ -99,7 +80,7 @@
 				<div class="course">
 					<div class="num">STAT 33B</div>
 					<div class="name">Introduction to Advanced Programming in R:</div>
-					<div class="desc">exploration of data handling with R/R-Studio</div>
+					<div class="desc">exploration of data handling with R/R-Studio.</div>
 				</div>
 			</ul>
 			<div>CS upper divs:</div>
@@ -120,6 +101,11 @@
 					<div class="desc">graph algorithms, dynamic programming, search problems, reductions, NP-completeness.</div>
 				</div>
 				<div class="course">
+					<div class="num">EE 120</div>
+					<div class="name">Signals and Systems</div>
+					<div class="desc">continuous and discrete-time analysis, Fourier, Laplace, and Z-transforms, frequency response and system stability analysis.</div>
+				</div>
+				<div class="course">
 					<div class="num">EECS 127</div>
 					<div class="name">Optimization Models in Engineering:</div>
 					<div class="desc">formulating and solving optimization problems, constraints, and convexity. used cvx/cvxpy.</div>
@@ -128,6 +114,11 @@
 					<div class="num">CS 189</div>
 					<div class="name">Introduction to Machine Learning:</div>
 					<div class="desc">mathematical proofs and reasoning for classification, regression, and neural networks. algorithms for improving learning rates.</div>
+				</div>
+				<div class="course">
+					<div class="num">CS 194-26</div>
+					<div class="name">Computer Vision and Computational Photography:</div>
+					<div class="desc">projective transformations, image morphing and stitching, computer vision, neural networks and feature detection.</div>
 				</div>
 			</ul>
 			<div>MATH upper divs:</div>
@@ -138,14 +129,24 @@
 					<div class="desc">sequences, limits, functions in R, convergence, infinite series. proofs of calculus concepts.</div>
 				</div>
 				<div class="course">
+					<div class="num">MATH 110</div>
+					<div class="name">Linear Algebra:</div>
+					<div class="desc">theory and proofs of linear algebra. matrices, vector spaces, linear transformations, quadratic forms.</div>
+				</div>
+				<div class="course">
 					<div class="num">MATH 113</div>
 					<div class="name">Introduction to Abstract Algebra:</div>
 					<div class="desc">intro to sets and relations, congruences, groups, rings, fields, and polynomials.</div>
 				</div>
 				<div class="course">
-					<div class="num">Math 110</div>
-					<div class="name">Linear Algebra:</div>
-					<div class="desc">theory and proofs of linear algebra. matrices, vector spaces, linear transformations, quadratic forms.</div>
+					<div class="num">MATH 115</div>
+					<div class="name">Introduction to Number Theory:</div>
+					<div class="desc">numerical functions, prime number theory, quadratic fields, continued fractions.</div>
+				</div>
+				<div class="course">
+					<div class="num">MATH 116</div>
+					<div class="name">Cryptography:</div>
+					<div class="desc">public key cryptography & signature schemes, hash functions, and other cryptography applications.</div>
 				</div>
 				<div class="course">
 					<div class="num">MATH 128A</div>
@@ -155,7 +156,7 @@
 				<div class="course">
 					<div class="num">MATH 185</div>
 					<div class="name">Complex Analysis:</div>
-					<div class="desc">calculus analogies in the complex plane</div>
+					<div class="desc">calculus analogies in the complex plane.</div>
 				</div>
 			</ul>
 			<div>STAT upper divs:</div>
@@ -164,6 +165,11 @@
 					<div class="num">DATA 100</div>
 					<div class="name">Principles and Techniques of Data Science:</div>
 					<div class="desc">data processing, trend analysis, and visualization. with numpy, pandas, SQL, sklearn. </div>
+				</div>
+				<div class="course">
+					<div class="num">DATA C102</div>
+					<div class="name">Data Inference and Decisions:</div>
+					<div class="desc">designing data science experiments, various statistical tests and tools.</div>
 				</div>
 				<div class="course">
 					<div class="num">STAT 135</div>
@@ -176,9 +182,19 @@
 					<div class="desc">mathematical proofs and reasoning for probability models.</div>
 				</div>
 				<div class="course">
+					<div class="num">STAT 151A</div>
+					<div class="name">Linear Modelling:</div>
+					<div class="desc">generalized linear models, computing regressions, and their applications.</div>
+				</div>
+				<div class="course">
 					<div class="num">STAT 153</div>
 					<div class="name">Intro to Time Series:</div>
 					<div class="desc">estimation and modeling of trends and seasonal patterns. forecasting and regression, model cross-validation.</div>
+				</div>
+				<div class="course">
+					<div class="num">STAT 159</div>
+					<div class="name">Reproducible and Collaborative Statistical Data Science:</div>
+					<div class="desc">group project-centered statistical analysis and presentations.</div>
 				</div>
 			</ul>
 		</div>

@@ -13,16 +13,25 @@
   <script type="text/javascript" src="assets/scripts/wordgame.js"></script>
 </head>
 <body>
-	<script>word=getWord()</script>
-  <input type="button" onclick="word=reset();" value="restart game"/>
+	<div style="margin:20px">
+	<script>word=getWord();</script>
+  	<input type="button" onclick="word=reset();" value="restart game"/>
+	<input type="button" value="give up :(" onclick="surrender(word)"></input>
 
 	<form onsubmit="makeGuess(word); return false;">
 		<input type="text" id="guess" autocomplete="off" autofocus/>
-  	<input type="submit" value="make guess!"/>
-		<input type="button" value="give up :(" onclick="surrender(word)"></input>
+  		<input type="submit" value="make guess!"/>
 	</form>
-	<div id="history">
-		
+
+	<div id="error" style="background-color: pink; margin-top:2px; margin-bottom: 2px; display: none"></div>
+	<div id="history"></div>
+
+	<!--textarea style="margin-top:2vh; width:20vw; height:10vh"></textarea-->
+
+	<hr style="margin-top: 2vh";>
+	<h4>Scratchpad:</h4>
+	<div id="scratchpad" style="margin-top: 1vh; width: 20vw; height: 10vh"></div>
+	<script>resetScratchpad();</script>
 	</div>
 </body>
 </html>

@@ -281,7 +281,7 @@ img {
 
 .entry-info {
 	color: black;
-	padding-bottom: 40px;
+	padding-bottom: 20px;
 	display: table-cell;
 }
 
@@ -294,6 +294,37 @@ img {
 .entry-desc {
 	margin-top: 10px;
 	font-size: 18px;
+	line-height: normal;
+	padding-bottom: 20px;
+}
+
+.gh-link {
+	margin-top: 10px;
+}
+
+.entry-table {
+	margin-top: 10px;
+	margin-left: 10px;
+	font-size: 16px;
+	line-height: normal;
+	table-layout: fixed;
+}
+
+.subentry {
+	display: table-row;
+}
+
+.subentry-date {
+	font-size: 12px;
+	vertical-align: top;
+	color:#6e7c9f;
+	padding-right: 12px;
+	display: table-cell;
+}
+
+.subentry-desc {
+	margin-bottom: 5px;
+	font-size: 15px;
 	line-height: normal;
 }
 
@@ -338,6 +369,17 @@ img {
 
 .gallery * {
 	padding: 10px;
+}
+
+.wordgame-keyboard-letter {
+	padding: 5px;
+	margin: 5px;
+	font-family: monospace;
+	background-color: white;
+	border-radius: 20%;
+	outline-width: 1px;
+	font-size: large;
+	width: 50px; height: 50px;
 }
 
 /* Text */

@@ -1,3 +1,4 @@
+// possible "correct" words (subset of all legal words for play-ability)
 let wordString = "their about would other words could write first water after right think years place sound great found those under " +
 "might while house world below asked large until along being often earth began since study night light above parts young " +
 "story point times heard whole white given means music miles thing today later using money lines group among learn space table early " +
@@ -428,23 +429,62 @@ var legalArr = [
   'zones', 'zonks', 'zoril', 'zoris', 'zouks', 'zowie', 'zupan', 'zupas', 'zurfs', 'zygal', 'zygon', 'zymes', 'zymic'
 ];
 
+let alphabet = "abcdefghijklmnopqrstuvwxyz";
+let scratchpadColors = [
+  'white',
+  'tomato',
+  'yellow',
+  'palegreen'
+]
+
+/* utils */
+function showError(error) {
+  let err_box = document.getElementById("error");
+  err_box.style.display = "block"
+  err_box.innerText = error;
+}
+
+function hideError() {
+  let err_box = document.getElementById("error");
+  err_box.style.display = "none"
+  err_box.innerText = "";
+}
+
+/* state variables */
 let wordArr = wordString.split(" ").filter(item => item);
 var score = 0
+let letter_dict = alphabet.split("").reduce(
+  (dict, letter) => {
+    dict[letter] = 0; return dict;
+  }, {});
+var alreadyGuessed = new Set();
+
+function resetScratchpad() {
+  var divs = alphabet.split("").map(l => {
+    letter_dict[l] = 0;
+    return `<button class="wordgame-keyboard-letter" id="wordgame-keyboard-letter-${l}" onclick="toggleLetterColor('${l}')">${l}</button>`;
+  });
+
+  document.getElementById("scratchpad").innerHTML = divs.join('');
+}
+
+function toggleLetterColor(letter) {
+  letter_dict[letter] = (letter_dict[letter] + 1) % Object.keys(scratchpadColors).length
+  document.getElementById(`wordgame-keyboard-letter-${letter}`).style.backgroundColor =
+    scratchpadColors[letter_dict[letter]];
+}
 
 function reset() {
+  score = 0;
+
   document.getElementById("history").innerHTML = "";
+  hideError();
+  resetScratchpad();
   return getWord();
 }
 
 function getWord() {
-  console.log("hello there")
   var randIdx = Math.floor(Math.random() * wordArr.length)
-
-  console.log("Random word:", wordArr[randIdx]);
-
-  /* Reset things */
-  score = 0;
-
   return wordArr[randIdx];
 }
 
@@ -459,23 +499,28 @@ function getScore(a,b) {
 function makeGuess(solution) {
   var guess = document.getElementById("guess").value.toLowerCase()
 
-  console.log("guess:", guess)
   if (guess.length != 5 || !legalArr.includes(guess)) {
-    console.log("not a legal guess")
+    showError(`${guess.toUpperCase()} not a valid guess (must be 5 unique letters)`)
     return
   }
+
+  if (alreadyGuessed.has(guess)) {
+    showError(`${guess.toUpperCase()} already guessed`)
+    return;
+  }
+
+  alreadyGuessed.add(guess);
+  hideError();
 
   document.getElementById("guess").value = ""
   score++;
   if (guess == solution) {
-    console.log("YAY", score)
     document.getElementById("history").innerHTML += `<div>YAY! the word was ${solution.toUpperCase()}. score: ${score}</div>`
     // game over
     return
   }
 
   let result = getScore(guess, solution);
-  console.log(guess + ":", result);
   document.getElementById("history").innerHTML += `<div>${guess.toUpperCase()}: ${result}</div>`
 }
 
