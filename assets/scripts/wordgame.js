@@ -460,12 +460,19 @@ let letter_dict = alphabet.split("").reduce(
 var alreadyGuessed = new Set();
 
 function resetScratchpad() {
-  var divs = alphabet.split("").map(l => {
-    letter_dict[l] = 0;
-    return `<button class="wordgame-keyboard-letter" id="wordgame-keyboard-letter-${l}" onclick="toggleLetterColor('${l}')">${l}</button>`;
-  });
+  const scratchpad = document.getElementById("scratchpad");
 
-  document.getElementById("scratchpad").innerHTML = divs.join('');
+  alphabet.split("").forEach(l => {
+    letter_dict[l] = 0;
+
+    var letterButton = document.createElement('button');
+    letterButton.className = 'wordgame-keyboard-letter';
+    letterButton.id = `wordgame-keyboard-letter-${l}`;
+    letterButton.innerText = l;
+    letterButton.onclick = function() { toggleLetterColor(l) };
+
+    scratchpad.appendChild(letterButton);
+  });
 }
 
 function toggleLetterColor(letter) {
