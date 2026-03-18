@@ -450,6 +450,21 @@ function hideError() {
   err_box.innerText = "";
 }
 
+function getGameStateMsgDiv(msgs, color) {
+  let statusMsgDiv = document.createElement('div')
+  statusMsgDiv.style.borderStyle = "solid"
+  statusMsgDiv.style.borderColor = "currentColor"
+  statusMsgDiv.style.color = color
+
+  msgs.forEach(lineText => {
+    let lineDiv = document.createElement('div')
+    lineDiv.innerText = lineText
+    statusMsgDiv.appendChild(lineDiv);
+  })
+
+  return statusMsgDiv;
+}
+
 /* state variables */
 let wordArr = wordString.split(" ").filter(item => item);
 var score = 0
@@ -458,9 +473,11 @@ let letter_dict = alphabet.split("").reduce(
     dict[letter] = 0; return dict;
   }, {});
 var alreadyGuessed = new Set();
+var is_gameover = false;
 
 function resetScratchpad() {
   const scratchpad = document.getElementById("scratchpad");
+  scratchpad.replaceChildren();
 
   alphabet.split("").forEach(l => {
     letter_dict[l] = 0;
@@ -483,6 +500,7 @@ function toggleLetterColor(letter) {
 
 function reset() {
   score = 0;
+  is_gameover = false;
 
   document.getElementById("history").innerHTML = "";
   hideError();
@@ -504,6 +522,10 @@ function getScore(a,b) {
 }
 
 function makeGuess(solution) {
+  if (is_gameover) {
+    return;
+  }
+
   var guess = document.getElementById("guess").value.toLowerCase()
 
   if (guess.length != 5 || !legalArr.includes(guess)) {
@@ -521,9 +543,13 @@ function makeGuess(solution) {
 
   document.getElementById("guess").value = ""
   score++;
+
   if (guess == solution) {
-    document.getElementById("history").innerHTML += `<div>YAY! the word was ${solution.toUpperCase()}. score: ${score}</div>`
-    // game over
+    document.getElementById("history").appendChild(
+      getGameStateMsgDiv([`YAY! the word was ${solution.toUpperCase()}.`, `Your score: ${score}`], "darkgreen")
+    )
+
+    is_gameover = true;
     return
   }
 
@@ -532,5 +558,12 @@ function makeGuess(solution) {
 }
 
 function surrender(solution) {
-  document.getElementById("history").innerHTML += `<div>You gave up after ${score} guess${score == 1 ? "" : "es"} :(</div><div>the word was ${solution.toUpperCase()}.</div>`
+  if (is_gameover) {
+    return;
+  }
+
+  is_gameover = true;
+  document.getElementById("history").appendChild(
+    getGameStateMsgDiv([`You gave up after ${score} guess${score == 1 ? "" : "es"} :(`, `the word was ${solution.toUpperCase()}`], "red")
+  )
 }
